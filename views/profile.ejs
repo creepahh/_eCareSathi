@@ -3,49 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheet/profile.css">
     <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .welcome-section {
+            margin: 20px 0;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header h1 {
+            text-align: center;
+        }
+
+        .profile-picture {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .child-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            margin: 20px 0;
+        }
+
+        .profile-details h2 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .care-schedule {
+            margin-top: 30px;
+            background-color: #ffefef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .care-schedule h3 {
+            text-align: center;
+            color: #d9534f; /* Cute color for the title */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .care-type {
+            font-weight: bold;
+            color: #4CAF50; /* Green for care type */
+        }
+
+        .care-status {
+            border-radius: 12px;
+            padding: 5px 10px;
+            color: white;
+            background-color: #d9534f; /* Red for pending */
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #5cb85c; /* Green for completed */
+        }
+    </style>
 </head>
+<header>
+    <div class="welcome-section">
+        <h2>Welcome to eCareSathi</h2>
+        <p>Your journey towards better parenting starts here!</p> 
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
 <body>
     <div class="profile-container">
         <div class="profile-header">
-            <h1>Profile</h1>
+            <h1>User Profile</h1>
         </div>
         
         <div class="profile-picture">
-            <img src="<%= user.photo || '/images/default-child.png' %>" alt="Child's Photo" class="child-photo">
-            <input type="file" accept="image/*" id="photoUpload" />
+            <img src="/images/dummy-child.jpg" alt="Child's Photo" class="child-photo">
         </div>
 
         <div class="profile-details">
-            <h2><%= user.childName %></h2>
-            <p><strong>Parent's Name:</strong> <%= user.parentName %></p>
-            <p><strong>Parent's Work Address:</strong> <%= user.workAddress %></p>
-            <p><strong>Child's Age:</strong> <%= user.childAge %></p>
-            <p><strong>Child's School Name:</strong> <%= user.schoolName %></p>
-            <p><strong>Child's School Address:</strong> <%= user.schoolAddress %></p>
-            <p><strong>School End Timing:</strong> <%= user.schoolEndTime %></p>
-            <p><strong>Hobbies:</strong> <%= user.hobbies.join(', ') %></p>
+            <h2>Child's Name</h2>
+            <p><strong>Parent's Name:</strong> Parent's Name Here</p>
+            <p><strong>Parent's Work Address:</strong> Parent's Work Address Here</p>
+            <p><strong>Child's Age:</strong> 5</p>
+            <p><strong>Child's School Name:</strong> School Name Here</p>
+            <p><strong>Child's School Address:</strong> School Address Here</p>
+            <p><strong>School End Timing:</strong> 3:00 PM</p>
+            <p><strong>Hobbies:</strong> Painting, Soccer, Reading</p>
         </div>
 
         <div class="care-schedule">
             <h3>Scheduled Care Times</h3>
             <ul>
-                <% if (user.careTimes.length > 0) { %>
-                    <% user.careTimes.forEach(care => { %>
-                        <li>
-                            <strong>Care Type:</strong> <%= care.type %>
-                            <strong>Time:</strong> <%= care.time %>
-                            <strong>Status:</strong> <%= care.status %>
-                        </li>
-                    <% }); %>
-                <% } else { %>
-                    <li>No scheduled care times.</li>
-                <% } %>
+                <li>
+                    <span class="care-type">Pickup</span>
+                    <span>Time: 2:00 PM</span>
+                    <span class="care-status">Pending</span>
+                </li>
+                <li>
+                    <span class="care-type">Homework Assistance</span>
+                    <span>Time: 4:00 PM</span>
+                    <span class="care-status status-completed">Completed</span>
+                </li>
+                <li>
+                    <span class="care-type">Drop off</span>
+                    <span>Time: 5:00 PM</span>
+                    <span class="care-status">Pending</span>
+                </li>
             </ul>
         </div>
     </div>
-
-    
 </body>
 </html>

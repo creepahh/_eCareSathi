@@ -15,10 +15,20 @@ var app = express();
 
 var mongoose = require("mongoose");
 
-//db connection
-mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
-  .then(() => console.log('Connected!'))
-  .catch((e) => console.log(e));
+// //db connection
+// mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
+//   .then(() => console.log('Connected!'))
+//   .catch((e) => console.log(e));
+
+app.get('/users', (req, res) => {
+  db.all(`SELECT * FROM users`, [], (err, rows) => {
+      if (err) {
+          res.status(500).send(err.message);
+          return;
+      }
+      res.json(rows); // Send the user data 
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,5 +66,18 @@ app.get('/services', (req, res) => {
   res.json(services);
 });
 
+
+// app.post('/signup', (req, res) => {
+//     const { childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies } = req.body;
+//     const stmt = db.prepare(`INSERT INTO users (child_name, parent_name, school_address, home_address, age, school_name, hobbies)
+//                              VALUES (?, ?, ?, ?, ?, ?, ?)`);
+//     stmt.run(childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies, (err) => {
+//         if (err) {
+//             return res.status(500).send(err.message);
+//         }
+//         stmt.finalize();
+//         res.redirect('/users'); // Redirect to the users page to see the data
+//     });
+// });
 
 module.exports = app;
