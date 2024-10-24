@@ -35,8 +35,12 @@ body{
   overflow: auto;
 }
 #container {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
   flex: 1; /* Take up equal space */
-  padding: 20px; /* Space around the forms */
+  /* padding: 20px;  */
+  /* Space around the forms */
 }
 #img {
   flex: 1; /* Take up equal space */
@@ -93,7 +97,7 @@ body{
 }
 
 .container form{
-  /* background-color: #fff; */
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,35 +118,34 @@ body{
 }
 
 .form-container{
-  position: absolute;
-  top: 0;
+  /* position: absolute; */
+  /* top: 0; */
   height: 100%;
   transition: all 0.6s ease-in-out;
 }
 
 .sign-in{
-  left: 0;
+  /* left: 0; */
   width: 50%;
   z-index: 2;
 }
 
-.container.active .sign-in{
+/* .container.active .sign-in{
   transform: translateX(100%);
-}
+} */
 
-.sign-up{
+/* .sign-up{
   left: 0;
   width: 50%;
-  opacity: 0;
   z-index: 1;
-}
+} */
 
-.container.active .sign-up{
+/* .container.active .sign-up{
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
   animation: move 0.6s;
-}
+} */
 
 @keyframes move{
   0%, 49.99%{
@@ -172,9 +175,10 @@ body{
 
 .toggle-container{
   position: absolute;
+  display: flex;
   top: 0;
-  left: 50%;
-  width: 50%;
+  left: 0;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   transition: all 0.6s ease-in-out;
@@ -183,49 +187,59 @@ body{
 }
 
 .container.active .toggle-container{
-  transform: translateX(-100%);
+  /* transform: translateX(-100%); */
   border-radius: 0 150px 100px 0;
 }
 
 .toggle{
   background-color: #a8872d;
+  z-index: 10;
   height: 100%;
   background: linear-gradient(to right, #5c6bc0, #a8872d);
   color: #fff;
-  position: relative;
-  left: -100%;
+  position: absolute;
+  right: 0;
   height: 100%;
-  width: 200%;
-  transform: translateX(0);
+  width: 50%;
+  display: flex;
+  align-items: center;
+  /* transform: translateX(0); */
   transition: all 0.6s ease-in-out;
 }
 
 .container.active .toggle{
-  transform: translateX(50%);
+  left: 0;
 }
 
 .toggle-panel{
-  position: absolute;
-  width: 50%;
-  height: 100%;
+  /* position: absolute; */
+  width: 100%;
+  /* height: 100%; */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 0 30px;
   text-align: center;
-  top: 0;
-  transform: translateX(0);
+  /* top: 0; */
+  /* transform: translateX(0); */
   transition: all 0.6s ease-in-out;
 }
 
 .toggle-left{
-  transform: translateX(-200%);
+  /* transform: translateX(-200%); */
+  display: none;
 }
 
 
 .toggle-right{
   right: 0;
-  transform: translateX(0);
+  /* transform: translateX(0); */
 }   
 
+.active .toggle .toggle-right {
+  display: none;
+}
+.active .toggle .toggle-left {
+  display: block;
+}
