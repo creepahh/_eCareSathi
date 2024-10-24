@@ -1,3 +1,51 @@
-<h1>Welcome, <%= user.username %>!</h1>
-<p>Email: <%= user.email %></p>
-<!-- Display other user-specific information -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/profile.css">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Profile</h1>
+        </div>
+        
+        <div class="profile-picture">
+            <img src="<%= user.photo || '/images/default-child.png' %>" alt="Child's Photo" class="child-photo">
+            <input type="file" accept="image/*" id="photoUpload" />
+        </div>
+
+        <div class="profile-details">
+            <h2><%= user.childName %></h2>
+            <p><strong>Parent's Name:</strong> <%= user.parentName %></p>
+            <p><strong>Parent's Work Address:</strong> <%= user.workAddress %></p>
+            <p><strong>Child's Age:</strong> <%= user.childAge %></p>
+            <p><strong>Child's School Name:</strong> <%= user.schoolName %></p>
+            <p><strong>Child's School Address:</strong> <%= user.schoolAddress %></p>
+            <p><strong>School End Timing:</strong> <%= user.schoolEndTime %></p>
+            <p><strong>Hobbies:</strong> <%= user.hobbies.join(', ') %></p>
+        </div>
+
+        <div class="care-schedule">
+            <h3>Scheduled Care Times</h3>
+            <ul>
+                <% if (user.careTimes.length > 0) { %>
+                    <% user.careTimes.forEach(care => { %>
+                        <li>
+                            <strong>Care Type:</strong> <%= care.type %>
+                            <strong>Time:</strong> <%= care.time %>
+                            <strong>Status:</strong> <%= care.status %>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <li>No scheduled care times.</li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    
+</body>
+</html>

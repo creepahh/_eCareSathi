@@ -1,6 +1,7 @@
 const passport = require('passport');
 const session = require('express-session');
 
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,6 +12,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+var mongoose = require("mongoose");
+
+//db connection
+mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
+  .then(() => console.log('Connected!'))
+  .catch((e) => console.log(e));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,9 +50,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// app.listen(3000, () => {
-//   console.log('Server is running on http://localhost:3000');
-// });
+//services
+app.get('/services', (req, res) => {
+  const services = ['pickup', 'drop', 'homework assistance', 'hobbies boost'];
+  res.json(services);
+});
 
 
 module.exports = app;
