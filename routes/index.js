@@ -7,16 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-<<<<<<< HEAD
-router.post('/login', async function(req, res) {
-    res.render('user', {title: 'User' } );
-});
-
-router.get('/register', async function(req, res) {
-  res.render('signUp', {title: 'Signup' } );
-});
-
-=======
 router.post('/register', async function(req, res) {
   res.render('register', {title: 'Signup' } );
 });
@@ -49,5 +39,4 @@ router.get('/profile', (req, res) => {
 
 
 
->>>>>>> 5a4a416c15da768eb44876d72108c378cfc59592
 module.exports = router;
