@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Pickup and Drop-off Details</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Pickup and Drop-off Details</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Parent's Name</th>
+                    <th>Child's Name</th>
+                    <th>Pickup Time</th>
+                    <th>Drop Time</th>
+                    <th>Homework Status</th>
+                    <th>Assisted By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pickupDetails.forEach(function(detail) { %>
+                    <tr>
+                        <td><%= detail.parentName %></td>
+                        <td><%= detail.childName %></td>
+                        <td><%= detail.pickupTime %></td>
+                        <td><%= detail.dropTime %></td>
+                        <td><%= detail.homeworkStatus %></td>
+                        <td><%= detail.assistedBy %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <a href="/signup">Bacck to sign up</a>
+    </div>
+</body>
+</html>
+

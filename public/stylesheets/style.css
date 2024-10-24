@@ -16,6 +16,7 @@ a {
 a {
   color: #00B7FF;
 } */
+
 *{
   margin: 0;
   padding: 0;
@@ -217,4 +218,123 @@ body{
   right: 0;
   transform: translateX(0);
 }   
+/* General container styling */
 
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures no double borders */
+  border-spacing: 0; /* Removes gaps between table cells */
+  margin-top: 20px;
+}
+
+/* Header styling */
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  padding: 12px 15px;
+  border-bottom: 2px solid #ddd;
+  text-align: left;
+}
+
+/* Cell styling */
+td {
+  padding: 10px 15px; /* Adds space inside the table cells */
+  border-bottom: 1px solid #ddd;
+}
+
+/* Alternating row color */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Back to Home link styling */
+a {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 16px;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 16px;
+  appearance: none; /* Remove default arrow on select */
+}
+
+/* Button styles */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+}

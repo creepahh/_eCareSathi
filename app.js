@@ -6,7 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var signupRouter = require('./routes/signup'); // Import signup router
+var signupRouter = require('./routes/signup'); // Import home router
+var pickupRouter = require('./routes/pickup'); // Import pickup router
 var app = express();
 
 // view engine setup
@@ -19,8 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/signup', signupRouter); 
+app.use('/pickup',pickupRouter);
+
+// Use signup router for /signup router
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
