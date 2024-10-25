@@ -12,7 +12,9 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-// var caregiverRoutes = require('./routes/caregivers');
+var caregiverRouter = require('./routes/caregiver');
+var driverRouter = require('./routes/driver');
+
 
 
 var app = express();
@@ -62,6 +64,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/caregiver', caregiverRouter);
+app.use('/driver', driverRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -85,6 +90,23 @@ app.get('/services', (req, res) => {
   res.json(services);
 });
 
+
+const createRide = async (riderId, childId, pickupLocation, dropoffLocation) => {
+  const ride = new Ride({
+    riderId,
+    childId,
+    pickupLocation,
+    dropoffLocation,
+  });
+  await ride.save();
+
+  // Add the ride to the rider's rides array
+  const rider = await Rider.findById(riderId);
+  rider.rides.push(ride._id);
+  await rider.save();
+
+  return ride;
+};
 
 // app.post('/signup', (req, res) => {
 //     const { childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies } = req.body;

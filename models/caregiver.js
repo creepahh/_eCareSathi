@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const caregiverSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -27,6 +27,6 @@ caregiverSchema.pre('save', async function (next) {
   }
 });
 
-const Caregiver = mongoose.model('Caregiver', caregiverSchema);
+const Caregiver = mongoose.model('caregiver', caregiverSchema);
 
 module.exports = Caregiver;
