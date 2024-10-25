@@ -13,7 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-const dbUrl = 'mongodb://192.168.1.10:27017/eCareSathi';
+const dbUrl = 'mongodb://localhost:27017/eCareSathi';
 
 mongoose
   .connect(dbUrl)
