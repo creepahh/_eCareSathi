@@ -1,0 +1,116 @@
+<head>
+ <style>
+ body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+       /* Ensures the footer is at the bottom */
+            margin: 0 auto ;
+            padding-bottom: 6.47rem;
+           min-height: cal(100vh- 199px -145px);
+           
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 5px 0;
+            text-align: center;
+            width:100%; /* Ensures the footer spans the entire width */
+            position: relative;
+            margin-top: 3px 0; /* Allows positioning within the footer */
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: cal(50%-5px) /* Adjust as needed for responsive design */
+        }
+        .main-content {
+    flex: 1; /* Allows main content to take available space */
+}
+
+        .footer-links, .footer-info, .footer-social {
+            margin: 15px;
+        }
+
+        .footer-links h3, .footer-info h3, .footer-social h3 {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin: 5px 0;
+        }
+
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+            color: #0056b3; /* Darker shade on hover */
+            transform: scale(1.1); 
+        }
+        
+
+
+.footer-social a {
+    margin: 0 10px; /* Add space between social links */
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.footer-social a:hover {
+    color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.1); /* Slightly enlarge the social icons on hover */
+}
+
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+ </style>
+</head>
+<body>
+    
+<footer>
+    <div class="footer-container">
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/about-us">About Us</a></li>
+                <li><a href="/help">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/policy-terms">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-info">
+            <h3>Contact Us</h3>
+            <p>Email: info@ecaresathi.com</p>
+            <p>Phone: +1 234 567 890</p>
+        </div>
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 E-Care Sathi. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>

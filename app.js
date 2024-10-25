@@ -65,6 +65,20 @@ app.get('/services', (req, res) => {
   const services = ['pickup', 'drop', 'homework assistance', 'hobbies boost'];
   res.json(services);
 });
+// Route to render Policy Terms and Use
+app.get('/policy-terms', (req, res) => {
+    res.render('policy-terms'); // Create a corresponding EJS file
+});
+
+// Route to render Help
+app.get('/help', (req, res) => {
+    res.render('help'); // Create a corresponding EJS file
+});
+
+// Route to render About Us
+app.get('/about-us', (req, res) => {
+    res.render('about-us'); // Create a corresponding EJS file
+});
 
 
 // app.post('/signup', (req, res) => {
