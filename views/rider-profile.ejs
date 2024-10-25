@@ -151,6 +151,23 @@
                 </li>
             </ul>
         </div>
+        
+        <div class="status-update">
+            <h3>Update Status</h3>
+            <form id="status-update-form" action="/updateStatus" method="POST">
+                <label for="action">Action:</label>
+                <select id="action" name="action" required>
+                    <option value="pickup">Picking Up</option>
+                    <option value="dropoff">Dropping Off</option>
+                </select>
+        
+                <label for="childName">Child's Name:</label>
+                <input type="text" id="childName" name="childName" required>
+        
+                <input type="submit" value="Update Status">
+            </form>
+        </div>
+        
 
         <div class="handover-confirmation">
             <h3>Child Handover Confirmation</h3>

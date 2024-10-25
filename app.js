@@ -17,6 +17,9 @@ var driverRouter = require('./routes/driver');
 
 
 
+var riderRouter = require('./routes/riders');
+var tutorRouter = require('./routes/tutor');
+
 var app = express();
 const dbUrl = process.env.MONGO_URL;
 
