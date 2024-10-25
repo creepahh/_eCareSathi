@@ -49,7 +49,6 @@
             </div> -->
     
             <!-- Toggle between Sign In and Sign Up -->
-<<<<<<< HEAD
             <div class="toggle-container">
                 
             <div class="toggle">
@@ -68,22 +67,34 @@
                     </form>
                     
                     </div>
-=======
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h3>Welcome Back!</h3>
-                    <p>To keep connected with us, please login with your personal info</p>
-                    <button class="hidden" id="signIn">Sign In</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <h3>Hello, Parents!</h3>
-                    <p>Enter your child details and start your journey with us</p>
-                    <button class="hidden" id="signUp">Sign Up</button>
->>>>>>> 5a4a416c15da768eb44876d72108c378cfc59592
                 </div>
             </div>
         </div>
     </div>
+    <section id="services" class="services-section">
+        <h2>Our Services</h2>
+        <p>Explore the variety of services we offer to make your experience seamless and enjoyable.</p>
+        <div class="service-cards">
+          <% const services = [
+            { image: "tutor.png", title: "Tutoring" },
+            { image: "child-painting.png", title: "Hobbies" },
+            { image: "update.png", title: "Monitoring" },
+            { image: "meal.png", title: "Meals" },
+            { image: "tutor2.png", title: "Lesson Planning" },
+            { image: "safety.png", title: "Safety" }
+          ]; %>
+    
+          <% services.forEach(service => { %>
+            <div class="card">
+              <div class="circle-image">
+                <img src="/images/<%= service.image %>" alt="<%= service.title %>">
+              </div>
+              <h3><%= service.title %></h3>
+              <p>Discover more about our <%= service.title %>.</p>
+            </div>
+          <% }); %>
+        </div>
+      </section>
     
 
     <script>
@@ -103,6 +114,18 @@
         signUp.addEventListener('click', () => toggleActive(true));
         loginBtn.addEventListener('click', () => toggleActive(false));
         signIn.addEventListener('click', () => toggleActive(false));
+
+        // Enable smooth scrolling for the 'Services' link
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+        });
+      });
+    });
     </script>
 
 </body>

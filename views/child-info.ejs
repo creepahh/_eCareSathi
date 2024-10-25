@@ -1,0 +1,52 @@
+<form id="child-update-form" action="/submitChildUpdate" method="POST">
+    <h2>Child Information Update</h2>
+  
+    <!-- Child Details -->
+    <label for="childName">Child's Full Name:</label>
+    <input type="text" id="childName" name="childName" required>
+  
+    <label for="childAge">Child's Age:</label>
+    <input type="number" id="childAge" name="childAge" required min="7" max="12">
+  
+    <label for="childId">Child ID (if any):</label>
+    <input type="text" id="childId" name="childId">
+  
+    <!-- Caregiver Details -->
+    <label for="caregiverName">Caregiver's Full Name:</label>
+    <input type="text" id="caregiverName" name="caregiverName" required>
+  
+    <label for="caregiverId">Caregiver ID (if any):</label>
+    <input type="text" id="caregiverId" name="caregiverId">
+  
+    <!-- Homework Assistance -->
+    <h3>Homework Assistance</h3>
+    <label for="homeworkSubject">Subjects Covered:</label>
+    <textarea id="homeworkSubject" name="homeworkSubject" placeholder="e.g., Math: Completed worksheet, Science: Reviewed notes, etc." required></textarea>
+  
+    <label for="homeworkCompletion">Homework Completion Status:</label>
+    <select id="homeworkCompletion" name="homeworkCompletion" required>
+      <option value="complete">Complete</option>
+      <option value="partial">Partially Complete</option>
+      <option value="notStarted">Not Started</option>
+    </select>
+  
+    <!-- Meal Update -->
+    <h3>Meal Update</h3>
+    <label for="meals">Meals Provided:</label>
+    <textarea id="meals" name="meals" placeholder="e.g., Lunch: Sandwich, Snack: Fruit Salad, etc." required></textarea>
+  
+    <!-- Activity and Hobbies -->
+    <h3>Activity and Hobbies</h3>
+    <label for="hobbies">Activities or Hobbies Engaged In:</label>
+    <textarea id="hobbies" name="hobbies" placeholder="e.g., Drawing, Football, Reading" required></textarea>
+  
+    <label for="hobbyNotes">Activity Notes:</label>
+    <textarea id="hobbyNotes" name="hobbyNotes" placeholder="e.g., Completed a drawing, played football with friends, read a new story, etc."></textarea>
+  
+    <!-- Date of Update -->
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required>
+  
+    <input type="submit" value="Update Child Information">
+  </form>
+  

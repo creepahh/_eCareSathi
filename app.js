@@ -2,6 +2,7 @@ const passport = require('passport');
 const session = require('express-session');
 
 
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,6 +11,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var caregiverRoutes = require('./routes/caregivers');
+
 
 var app = express();
 
@@ -19,6 +22,15 @@ var mongoose = require("mongoose");
 // mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
 //   .then(() => console.log('Connected!'))
 //   .catch((e) => console.log(e));
+mongoose.connect('mongodb://localhost:27017/caregiverDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to MongoDB');
+});
 
 app.get('/users', (req, res) => {
   db.all(`SELECT * FROM users`, [], (err, rows) => {
