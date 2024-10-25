@@ -1,13 +1,32 @@
 const express = require('express');
 const router = express.Router();
 const Caregiver = require('../models/caregiver'); // Import the Caregiver model
+const { generateToken, verifyToken } = require('../jwt');
 
 router.get('/', function (req, res) {
   res.render('caregiver-registration');
 });
 
+router.get('/profile', function (req, res) {
+  res.render('caregiver-profile');
+});
+
+router.get('/get-profile-data', async function (req, res) {
+  try {
+    const request = req.query.token;
+    // console.log(req.query, typeof(request));
+    const { id, email } = verifyToken(request);
+    const caregiver = await Caregiver.findOne({ email: email });
+    // console.log("hi");
+    res.json(caregiver);
+  }
+  catch (err) {
+    res.end(err);
+  }
+});
+
 // Caregiver registration route
-router.post('/registerCaregiver', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     // Extract caregiver information from the form (req.body)
     const {
@@ -42,9 +61,11 @@ router.post('/registerCaregiver', async (req, res) => {
     });
 
     // Save the new caregiver to the database
-    await newCaregiver.save();
-
-    res.status(201).redirect('/login'); // Redirect to login page after successful registration
+    const newCareGiver = await newCaregiver.save();
+    console.log(newCareGiver);
+    const token = generateToken(newCareGiver);
+    console.log(token);
+    res.status(201).redirect('/caregiver/profile?token='+token); // Redirect to login page after successful registration
   } catch (error) {
     console.error(error);
     res.status(500).send('Error registering caregiver');
