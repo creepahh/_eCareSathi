@@ -1,6 +1,6 @@
 const passport = require('passport');
 const session = require('express-session');
-
+require('dotenv').config()
 
 
 var createError = require('http-errors');
@@ -8,6 +8,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -15,14 +16,19 @@ var usersRouter = require('./routes/users');
 
 
 var app = express();
+const dbUrl = process.env.MONGO_URL;
 
-var mongoose = require("mongoose");
+// mongoose
+//   .connect(dbUrl)
+//   .then(() => console.log('Connected!'));
+
+// var mongoose = require("mongoose");
 
 // //db connection
 // mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
 //   .then(() => console.log('Connected!'))
 //   .catch((e) => console.log(e));
-mongoose.connect('mongodb://localhost:27017/CareGiver', {
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

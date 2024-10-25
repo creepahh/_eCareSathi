@@ -3,14 +3,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    childName: { type: String, required: true },
+    childName: { type: [String], required: false },
     parentName: { type: String, required: true },
-    schoolAddress: { type: String, required: true },
+    email: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    password: { type: String, required: true }, // Assuming we want authentication
+    // schoolAddress: { type: String, required: true },
     homeAddress: { type: String, required: true },
-    services: { type: [String], enum: ['pickup', 'drop', 'homework assistance', 'hobbies boost'], required: true },
-    schedule: { type: String, required: true }, // Can be more detailed 
-
-    password: { type: String, required: true } // Assuming we want authentication
+    services: { type: [String], enum: ['pickup', 'drop', 'homework assistance', 'hobbies boost'], required: false },
+    schedule: { type: String, required: false } // Can be more detailed 
 });
 
 // Password hashing

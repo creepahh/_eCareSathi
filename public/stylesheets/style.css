@@ -27,18 +27,20 @@ a {
 body{
   background-color: #c9d6ff;
   background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-direction: column;
-  height: 100vh;
-  overflow: auto;
+  /* height: 100vh;
+  overflow: auto; */
 }
 #container {
   display: flex;
-  position: relative;
+  /* position: relative; */
   justify-content: space-between;
-  flex: 1; /* Take up equal space */
+  /* flex: 1; */
+  /* Take up equal space */
   /* padding: 20px;  */
   /* Space around the forms */
 }
@@ -56,7 +58,10 @@ body{
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  height: 480px;
+  margin: 0 auto 100px;
+  /* height: fit-content; */
+  /* margin-top: 00px; */
 }
 
 .container p{
@@ -121,6 +126,7 @@ body{
   /* position: absolute; */
   /* top: 0; */
   height: 100%;
+  width: 50%;
   transition: all 0.6s ease-in-out;
 }
 
@@ -128,6 +134,11 @@ body{
   /* left: 0; */
   width: 50%;
   z-index: 2;
+}
+
+.form-container span {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /* .container.active .sign-in{
