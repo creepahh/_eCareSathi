@@ -36,6 +36,8 @@ router.patch('/:id/status', async (req, res) => {
     }
 });
 
+
+
 setInterval(async () => {
     const response = await fetch('/fetchNotifications');
     const notifications = await response.json();
