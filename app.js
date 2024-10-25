@@ -1,5 +1,6 @@
 const passport = require('passport');
 const session = require('express-session');
+require('dotenv').config()
 
 
 var createError = require('http-errors');
@@ -7,18 +8,40 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+var caregiverRouter = require('./routes/caregiver');
 
-var mongoose = require("mongoose");
+
+var riderRouter = require('./routes/rider');
+// var tutorRouter = require('./routes/tutor');
+
+var app = express();
+const dbUrl = process.env.MONGO_URL;
+
+// mongoose
+//   .connect(dbUrl)
+//   .then(() => console.log('Connected!'));
+
+// var mongoose = require("mongoose");
 
 // //db connection
 // mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
 //   .then(() => console.log('Connected!'))
 //   .catch((e) => console.log(e));
+mongoose.connect(dbUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to MongoDB');
+});
 
 app.get('/users', (req, res) => {
   db.all(`SELECT * FROM users`, [], (err, rows) => {
@@ -43,6 +66,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/caregiver', caregiverRouter);
+app.use('/rider', riderRouter);
+// app.use('/api/tutors', tutorRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -80,6 +107,23 @@ app.get('/about-us', (req, res) => {
     res.render('about-us'); // Create a corresponding EJS file
 });
 
+
+const createRide = async (riderId, childId, pickupLocation, dropoffLocation) => {
+  const ride = new Ride({
+    riderId,
+    childId,
+    pickupLocation,
+    dropoffLocation,
+  });
+  await ride.save();
+
+  // Add the ride to the rider's rides array
+  const rider = await Rider.findById(riderId);
+  rider.rides.push(ride._id);
+  await rider.save();
+
+  return ride;
+};
 
 // app.post('/signup', (req, res) => {
 //     const { childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies } = req.body;

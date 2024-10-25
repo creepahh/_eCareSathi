@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCareSathi Landing Page</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            height: 100vh;
+        } */
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif; /* Changed to Arial for consistency */
+            /* background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+            background-color: #ffe4b5; /* Subtle orangish background */
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            color: #333;
+            /* height: 100vh;
+            overflow: auto; */
+        }
+        .container {
+            display: flex;
+            margin: 0 auto 100px;
+            justify-content: space-around;
+            align-items: center;
+            width: 80%;
+            max-width: 1000px;
+            padding: 30px;
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin-top: 20px; /* Space from header */
+            flex-wrap: wrap; /* Wraps elements if needed */
+        }
+        .image-box {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px; /* Space between image and buttons */
+        }
+        .image-box img {
+            max-width: 90%; /* Responsive image */
+            border-radius: 20px;
+            border: 5px solid #d1c3ca; /* Pink border */
+        }
+        .options-box {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+        }
+        .options-box h2 {
+            font-size: 28px;
+            color: #e4c05c; /* Pink text */
+            margin-bottom: 10px;
+        }
+        .options-box p {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #555; /* Darker text for contrast */
+        }
+        .options-box button {
+            background-color: #c9b1a9; 
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .options-box button:hover {
+            background-color: #e9b466; 
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        .options-box button:focus {
+            outline: none; /* Remove default outline */
+        }
+    </style>
+</head>
+<header>
+    <div class="welcome-section">
+        <h2>Welcome to eCareSathi</h2>
+        <p>Your journey towards better parenting starts here!</p>
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+<body>
+    <div class="container">
+        <div class="image-box">
+            <img src="..//public/images/child5.png" alt="eCareSathi Image"> 
+        </div>
+        <div class="options-box">
+            <h2>Join eCareSathi</h2>
+            <p>Please select your role:</p>
+            <button onclick="redirectToRole('caregiver')">I am a Caregiver</button>
+            <button onclick="redirectToRole('rider')">I am a Rider</button>
+            <button onclick="redirectToRole('parent')">I am a Parent/User</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToRole(role) {
+            switch (role) {
+                case 'caregiver':
+                    window.location.href = '/caregiver';
+                    break;
+                case 'rider':
+                    window.location.href = '/rider';
+                    break;
+                case 'parent':
+                    window.location.href = '/signUp';
+                    break;
+                default:
+                    console.error('Unknown role selected');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -23,22 +23,23 @@ a {
   font-family: 'Montserrat', sans-serif;
 }
 
-
 body{
   background-color: #c9d6ff;
   background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-direction: column;
-  height: 100vh;
-  overflow: auto;
+  /* height: 100vh;
+  overflow: auto; */
 }
 #container {
   display: flex;
-  position: relative;
+  /* position: relative; */
   justify-content: space-between;
-  flex: 1; /* Take up equal space */
+  /* flex: 1; */
+  /* Take up equal space */
   /* padding: 20px;  */
   /* Space around the forms */
 }
@@ -56,7 +57,10 @@ body{
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  height: 480px;
+  margin: 0 auto 100px;
+  /* height: fit-content; */
+  /* margin-top: 00px; */
 }
 
 .container p{
@@ -121,13 +125,25 @@ body{
   /* position: absolute; */
   /* top: 0; */
   height: 100%;
+  width: 50%;
   transition: all 0.6s ease-in-out;
+}
+
+.account-selector {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .sign-in{
   /* left: 0; */
   width: 50%;
   z-index: 2;
+}
+
+.form-container span {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /* .container.active .sign-in{
@@ -242,4 +258,70 @@ body{
 }
 .active .toggle .toggle-left {
   display: block;
+}
+/* services section */
+
+nav ul {
+  list-style: none;
+  background-color: #333;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+services-section {
+  text-align: center;
+  padding: 2rem;
+  background: #e9ecef;
+}
+
+.service-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  width: 200px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.circle-image {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.circle-image img {
+  width: 100%;
+  height: auto;
+}
+
+.card h3 {
+  margin: 1rem 0 0.5rem;
+}
+
+.card p {
+  color: #555;
 }

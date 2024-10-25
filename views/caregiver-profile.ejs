@@ -4,70 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caregiver Profile</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            max-width: 900px;
-            width: 100%;
+
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        .profile-container {
-            padding: 20px;
-        }
-        h1 {
+
+        .profile-header h1 {
             text-align: center;
-            color: #4CAF50;
         }
+
         .profile-picture {
             text-align: center;
+            margin: 20px 0;
         }
-        .profile-picture img {
+
+        .caregiver-photo {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            max-width: 150px;
-            max-height: 150px;
-            border: 2px solid #4CAF50;
+            object-fit: cover;
         }
+
         .profile-details {
-            margin-top: 20px;
+            margin: 20px 0;
         }
-        .profile-details p {
-            margin: 5px 0;
+
+        .profile-details h2 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .care-schedule {
+            margin-top: 30px;
+            background-color: #ffefef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .care-schedule h3 {
+            text-align: center;
+            color: #4b1513; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .care-type {
+            font-weight: bold;
+            color: #afa54c; 
+        }
+
+        .care-status {
+            border-radius: 12px;
+            padding: 5px 10px;
+            color: white;
+            background-color: #d9534f; 
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #5cb85c; 
         }
     </style>
 </head>
+<header>
+    <div class="welcome-section">
+        <h2>Welcome to eCareSathi</h2>
+        <p>Your journey towards better caregiving starts here!</p> 
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
 <body>
-    <div class="container">
-        <div class="profile-container">
-            <div class="profile-header">
-                <h1>Caregiver Profile</h1>
-            </div>
-            <div class="profile-picture">
-                <img src="/images/caregiver.jpg" alt="Caregiver's Photo">
-            </div>
-            <div class="profile-details">
-                <p><strong>Name:</strong> Jane Doe</p>
-                <p><strong>Experience:</strong> 5 years</p>
-                <p><strong>Special Skills:</strong> CPR Certified, Child Psychology</p>
-                <p><strong>Contact Number:</strong> (123) 456-7890</p>
-                <p><strong>Availability:</strong> Monday - Friday, 8 AM - 6 PM</p>
-            </div>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Caregiver Profile</h1>
         </div>
-        <div class="image-container">
-            <img src="/images/caregiver-image.jpg" alt="Caregiver Background" />
+        
+        <div class="profile-picture">
+            <img src="/images/dummy-caregiver.jpg" alt="Caregiver's Photo" class="caregiver-photo">
+        </div>
+
+        <div class="profile-details">
+            <h2 id="caregiver-name"></h2>
+            <p><strong>Qualifications:</strong><span id="caregiver-qualification"></span></p>
+            <p><strong>Experience:</strong><span id="caregiver-experience"></span></p>
+            <p><strong>Special Skills:</strong><span id="caregiver-special-skill"></span></p>
+            <p><strong>Daycare Center:</strong><span id="daycare-name"></span></p>
+            <p><strong>Daycare Address:</strong><span id="daycare-address"></span></p>
+            <p><strong>Contact Number:</strong><span id="caregiver-phone"></span></p>
+        </div>
+
+        <div class="care-schedule">
+            <h3>Care Schedule</h3>
+            <ul>
+                <li>
+                    <span class="care-type">Morning Shift</span>
+                    <span>Time: 8:00 AM - 12:00 PM</span>
+                    <span class="care-status status-completed">Completed</span>
+                </li>
+                <li>
+                    <span class="care-type">Afternoon Shift</span>
+                    <span>Time: 1:00 PM - 5:00 PM</span>
+                    <span class="care-status">Pending</span>
+                </li>
+                <li>
+                    <span class="care-type">Special Event</span>
+                    <span>Time: 3:00 PM - 4:00 PM</span>
+                    <span class="care-status">Pending</span>
+                </li>
+            </ul>
         </div>
     </div>
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        var token = searchParams.get('token');
+        if(searchParams.has('token')) {
+            token = searchParams.get('token');
+            window.localStorage.setItem('token', token);
+        }
+        else{
+            token = window.localStorage.getItem('token');
+        }
+        if(token){
+            // user is authorized
+            getData(token);
+        }
+        else {
+            // user isnt authorized
+        }
+        async function getData(token) {
+            try{
+                const response = await fetch('/caregiver/get-profile-data?token='+token);
+                const data = await response.json();
+                console.log(data);
+                
+                // setting datas.
+                document.getElementById('caregiver-name').textContent = `${data.firstName} ${data.lastName}`;
+                document.getElementById('caregiver-qualification').textContent = data.qualification;
+                document.getElementById('caregiver-experience').textContent = `${data.experience} years`;
+                document.getElementById('caregiver-special-skill').textContent = data.specialSkills;
+                document.getElementById('caregiver-phone').textContent = data.phone;
+                document.getElementById('daycare-name').textContent = data.daycareName;
+                document.getElementById('daycare-address').textContent = data.daycareAddress;
+                
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
 </body>
 </html>

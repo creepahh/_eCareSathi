@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver Registration</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4b5; /* Subtle orangish background */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Space out content */
+            align-items: flex-start; /* Align items at the top */
+            /* height: 100vh;  */
+            /* Full viewport height */
+            /* overflow-y: auto;  */
+            /* Enable scrolling */
+        }
+        .form-container {
+            background-color: #ffffff; /* White background for form */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 70%; /* Adjusted width */
+            max-width: 400px; /* Maximum width */
+        }
+        h2 {
+            color: #ff69b4; /* Pink title */
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555; /* Darker text for labels */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px); /* Full width with padding */
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #ff7f50; /* Coral background */
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%; /* Full width */
+        }
+        input[type="submit"]:hover {
+            background-color: #ff6347; /* Tomato color on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        .image-container {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-container img {
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="caregiver-registration-form" action="/caregiver/register" method="POST">
+            <h2>Caregiver Registration</h2>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit phone number" required>
+
+            <h3>Professional Details</h3>
+            <label for="qualification">Qualifications:</label>
+            <input type="text" id="qualification" name="qualification" required>
+
+            <label for="experience">Years of Experience:</label>
+            <input type="number" id="experience" name="experience" min="0" required>
+
+            <label for="specialSkills">Special Skills or Training:</label>
+            <textarea id="specialSkills" name="specialSkills"></textarea>
+
+            <h3>Daycare Affiliation</h3>
+            <label for="daycareName">Daycare Center Name:</label>
+            <input type="text" id="daycareName" name="daycareName" required>
+
+            <label for="daycareAddress">Daycare Address:</label>
+            <textarea id="daycareAddress" name="daycareAddress" required></textarea>
+
+            <label for="daycareId">Daycare ID (if provided):</label>
+            <input type="text" id="daycareId" name="daycareId">
+
+            <h3>Login Credentials</h3>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Register as Caregiver">
+        </form>
+    </div>
+    <div class="image-container">
+        <img src="/images/child-hobbies.png" alt="Caregiver Image">
+    </div>
+</body>
+</html>

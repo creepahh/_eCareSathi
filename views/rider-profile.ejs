@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Profile</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header h1 {
+            text-align: center;
+        }
+
+        .profile-picture {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .rider-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-details, .availability, .route-details {
+            margin: 20px 0;
+        }
+
+        .profile-details h2, .availability h3, .route-details h3 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .pickup-drop-status, .route-details {
+            margin-top: 30px;
+            background-color: #ffefef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drop-pickup-type {
+            font-weight: bold;
+            color: #afa54c; 
+        }
+
+        .status {
+            border-radius: 12px;
+            padding: 5px 10px;
+            color: white;
+            background-color: #d9534f; 
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #5cb85c; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="welcome-section">
+            <h2>Welcome to eCareSathi</h2>
+            <p>Your journey towards reliable rides starts here!</p> 
+        </div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Rider Profile</h1>
+        </div>
+        
+        <div class="profile-picture">
+            <img src="/images/dummy-rider.jpg" alt="Rider's Photo" class="rider-photo">
+        </div>
+
+        <div class="profile-details">
+            <h2>Rider's Name</h2>
+            <p><strong>Vehicle Type:</strong> SUV</p>
+            <p><strong>License Plate:</strong> ABC-1234</p>
+            <p><strong>Contact Number:</strong> (123) 456-7890</p>
+            <p><strong>Experience:</strong> 3 years</p>
+        </div>
+
+        <div class="availability">
+            <h3>Rider Availability</h3>
+            <p><strong>Available Days:</strong> Monday - Friday</p>
+            <p><strong>Available Hours:</strong> 7:00 AM - 6:00 PM</p>
+        </div>
+
+        <div class="route-details">
+            <h3>Route Details</h3>
+            <p><strong>Primary Daycare:</strong> Sunshine Daycare</p>
+            <p><strong>Drop-off Location:</strong> 123 Happy Lane, City, State</p>
+            <p><strong>Return Home Location:</strong> 456 Joy Street, City, State</p>
+        </div>
+
+        <div class="pickup-drop-status">
+            <h3>Pickup and Drop Status</h3>
+            <ul>
+                <li>
+                    <span class="drop-pickup-type">Pickup</span>
+                    <span>Time: 2:00 PM</span>
+                    <span class="status status-completed">Completed</span>
+                </li>
+                <li>
+                    <span class="drop-pickup-type">Drop Off</span>
+                    <span>Time: 3:00 PM</span>
+                    <span class="status">Pending</span>
+                </li>
+                <li>
+                    <span class="drop-pickup-type">Pickup</span>
+                    <span>Time: 5:00 PM</span>
+                    <span class="status">Pending</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="status-update">
+            <h3>Update Status</h3>
+            <form id="status-update-form" action="/updateStatus" method="POST">
+                <label for="action">Action:</label>
+                <select id="action" name="action" required>
+                    <option value="pickup">Picking Up</option>
+                    <option value="dropoff">Dropping Off</option>
+                </select>
+        
+                <label for="childName">Child's Name:</label>
+                <input type="text" id="childName" name="childName" required>
+        
+                <input type="submit" value="Update Status">
+            </form>
+        </div>
+        
+
+        <div class="handover-confirmation">
+            <h3>Child Handover Confirmation</h3>
+            <ul>
+                <li>
+                    <span class="drop-pickup-type">Handover to Parent</span>
+                    <span>Time: 3:15 PM</span>
+                    <span class="status status-completed">Completed</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

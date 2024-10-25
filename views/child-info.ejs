@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Information Update</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4b5; /* Subtle orangish background */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Space out content */
+            align-items: flex-start; /* Align items at the top */
+            height: 100vh; /* Full viewport height */
+            overflow-y: auto; /* Enable scrolling */
+        }
+        .form-container {
+            background-color: #ffffff; /* White background for form */
+            border-radius: 10px;
+            padding: 30px; /* Increased padding */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 60%; /* Adjusted width */
+            max-width: 500px; /* Maximum width */
+            overflow-y: auto; /* Enable scrolling for the form */
+            height: 80vh; /* Set height for scrolling */
+        }
+        h2 {
+            color: #ff69b4; /* Pink title */
+            text-align: center;
+            margin-bottom: 20px; /* Spacing below title */
+        }
+        label {
+            margin-top: 15px; /* Increased spacing */
+            font-weight: bold;
+            color: #555; /* Darker text for labels */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: calc(100% - 20px); /* Full width with padding */
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #ff7f50; /* Coral background */
+            color: white;
+            border: none;
+            padding: 12px; /* Increased padding */
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%; /* Full width */
+        }
+        input[type="submit"]:hover {
+            background-color: #ff6347; /* Tomato color on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        .image-container {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align image to the top */
+            padding-top: 20px; /* Space from top */
+        }
+        .image-container img {
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow to image */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="child-update-form" action="/submitChildUpdate" method="POST">
+            <h2>Child Information Update</h2>
+
+            <label for="childName">Child's Full Name:</label>
+            <input type="text" id="childName" name="childName" required>
+
+            <label for="childAge">Child's Age:</label>
+            <input type="number" id="childAge" name="childAge" required min="7" max="12">
+
+            <label for="childId">Child ID (if any):</label>
+            <input type="text" id="childId" name="childId">
+
+            <label for="caregiverName">Caregiver's Full Name:</label>
+            <input type="text" id="caregiverName" name="caregiverName" required>
+
+            <label for="caregiverId">Caregiver ID (if any):</label>
+            <input type="text" id="caregiverId" name="caregiverId">
+
+            <h3>Homework Assistance</h3>
+            <label for="homeworkSubject">Subjects Covered:</label>
+            <textarea id="homeworkSubject" name="homeworkSubject" placeholder="e.g., Math: Completed worksheet, Science: Reviewed notes, etc." required></textarea>
+
+            <label for="homeworkCompletion">Homework Completion Status:</label>
+            <select id="homeworkCompletion" name="homeworkCompletion" required>
+                <option value="complete">Complete</option>
+                <option value="partial">Partially Complete</option>
+                <option value="notStarted">Not Started</option>
+            </select>
+
+            <h3>Meal Update</h3>
+            <label for="meals">Meals Provided:</label>
+            <textarea id="meals" name="meals" placeholder="e.g., Lunch: Sandwich, Snack: Fruit Salad, etc." required></textarea>
+
+            <h3>Activity and Hobbies</h3>
+            <label for="hobbies">Activities or Hobbies Engaged In:</label>
+            <textarea id="hobbies" name="hobbies" placeholder="e.g., Drawing, Football, Reading" required></textarea>
+
+            <label for="hobbyNotes">Activity Notes:</label>
+            <textarea id="hobbyNotes" name="hobbyNotes" placeholder="e.g., Completed a drawing, played football with friends, read a new story, etc."></textarea>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <input type="submit" value="Update Child Information">
+        </form>
+    </div>
+    <div class="image-container">
+        <img src="/public/images/child.png" alt="Child Update Image">
+    </div>
+</body>
+</html>

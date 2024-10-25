@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eCareSathi</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/nav.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
 </head>
@@ -31,22 +32,29 @@
                     <h2>Sign In</h2>
                     <input type="email" placeholder="Email" required>
                     <input type="password" placeholder="Password" required>
+                    <div class="account-selector">
+                      <div><input type="radio" name="type" value="caregiver"><label for="type">Caregiver</label></div>
+                      <div><input type="radio" name="type" value="parent"><label for="type">Parent</label></div>
+                      <div><input type="radio" name="type" value="rider"><label for="type">Rider</label></div>
+                    </div>
                     <button type="submit">Sign In</button>
-                    <p>Don't have an account? <a href="/register" id="register">Sign Up</a></p>
+                    <p>Don't have an account? <span id="register">Sign Up</span></p>
                 </form>
             </div>
     
             <!-- Sign Up Form -->
-            <!-- <div class="form-container sign-up" style="color: black;">
+            <div class="form-container sign-up" style="color: black;">
                 <form action="/register" method="POST">
                     <h2>Create Account</h2>
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Password" required>
+                    <input type="text" placeholder="Name" name="name" required>
+                    <input type="email" placeholder="Email" name="email" required>
+                    <input type="password" placeholder="Password" name="password" required>
+                    <input type="text" placeholder="Phone number" name="phoneNumber" required>
+                    <input type="text" placeholder="Address" name="address" required>
                     <button type="submit">Sign Up</button>
-                    <p>Already have an account? <a href="/register" id="login">Sign In</a></p>
+                    <p>Already have an account? <span id="login">Sign In</span></p>
                 </form>
-            </div> -->
+            </div>
     
             <!-- Toggle between Sign In and Sign Up -->
             <div class="toggle">
@@ -63,6 +71,30 @@
             </div>
         </div>
     </div>
+    <section id="services" class="services-section">
+        <h2>Our Services</h2>
+        <p>Explore the variety of services we offer to make your experience seamless and enjoyable.</p>
+        <div class="service-cards">
+          <% const services = [
+            { image: "tutor.png", title: "Tutoring" },
+            { image: "child-painting.png", title: "Hobbies" },
+            { image: "update.png", title: "Monitoring" },
+            { image: "meal.png", title: "Meals" },
+            { image: "tutor2.png", title: "Lesson Planning" },
+            { image: "safety.png", title: "Safety" }
+          ]; %>
+    
+          <% services.forEach(service => { %>
+            <div class="card">
+              <div class="circle-image">
+                <img src="/images/<%= service.image %>" alt="<%= service.title %>">
+              </div>
+              <h3><%= service.title %></h3>
+              <p>Discover more about our <%= service.title %>.</p>
+            </div>
+          <% }); %>
+        </div>
+      </section>
     
 
 
@@ -83,6 +115,18 @@
         signUp.addEventListener('click', () => toggleActive(true));
         loginBtn.addEventListener('click', () => toggleActive(false));
         signIn.addEventListener('click', () => toggleActive(false));
+
+        // Enable smooth scrolling for the 'Services' link
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+        });
+      });
+    });
     </script>
 
 <%- include('footer.ejs') %> 
