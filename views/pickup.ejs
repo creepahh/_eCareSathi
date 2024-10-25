@@ -1,40 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Pickup and Drop-off Details</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Pickup and Drop-off Details</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Parent's Name</th>
-                    <th>Child's Name</th>
-                    <th>Pickup Time</th>
-                    <th>Drop Time</th>
-                    <th>Homework Status</th>
-                    <th>Assisted By</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% pickupDetails.forEach(function(detail) { %>
-                    <tr>
-                        <td><%= detail.parentName %></td>
-                        <td><%= detail.childName %></td>
-                        <td><%= detail.pickupTime %></td>
-                        <td><%= detail.dropTime %></td>
-                        <td><%= detail.homeworkStatus %></td>
-                        <td><%= detail.assistedBy %></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-        <a href="/signup">Bacck to sign up</a>
-    </div>
-</body>
-</html>
+ <!-- <h1>Child Pickup Notifications</h1>
 
+    <h2>Schedule a Pickup</h2>
+    <form action="/schedule-pickup" method="POST">
+        <label for="parentId">Select Parent:</label>
+        <select name="parentId" required>
+            <% users.parents.forEach(parent => { %>
+                <option value="<%= parent.id %>"><%= parent.name %></option>
+            <% }); %>
+        </select>
+
+        <label for="riderId">Select Rider:</label>
+        <select name="riderId" required>
+            <% users.riders.forEach(rider => { %>
+                <option value="<%= rider.id %>"><%= rider.name %></option>
+            <% }); %>
+        </select>
+
+        <label for="pickupTime">Pickup Time:</label>
+        <input type="datetime-local" name="pickupTime" required>
+
+        <label for="dropoffTime">Drop-off Time:</label>
+        <input type="datetime-local" name="dropoffTime" required>
+
+        <button type="submit">Schedule Pickup</button>
+    </form>
+
+    <h2>Notifications</h2>
+    <ul>
+        <% users.parents.forEach(parent => { %>
+            <li><strong><%= parent.name %></strong> Notifications:
+                <ul>
+                    <% parent.notifications.forEach(notification => { %>
+                        <li><%= notification %></li>
+                    <% }); %>
+                </ul>
+            </li>
+        <% }); %>
+        <% users.caregivers.forEach(caregiver => { %>
+            <li><strong><%= caregiver.name %></strong> Notifications:
+                <ul>
+                    <% caregiver.notifications.forEach(notification => { %>
+                        <li><%= notification %></li>
+                    <% }); %>
+                </ul>
+            </li>
+        <% }); %>
+        <% users.riders.forEach(rider => { %>
+            <li><strong><%= rider.name %></strong> Notifications:
+                <ul>
+                    <% rider.notifications.forEach(notification => { %>
+                        <li><%= notification %></li>
+                    <% }); %>
+                </ul>
+            </li>
+        <% }); %>
+    </ul>
+
+    <h2>Update Pickup Status</h2>
+    <form action="/pickup-completed" method="POST">
+        <label for="pickupId">Pickup ID:</label>
+        <input type="number" name="pickupId" required>
+        <button type="submit">Mark as Picked Up</button>
+    </form>
+
+    <form action="/dropoff-completed" method="POST">
+        <label for="pickupId">Pickup ID:</label>
+        <input type="number" name="pickupId" required>
+        <button type="submit">Mark as Dropped Off</button>
+    </form> -->
