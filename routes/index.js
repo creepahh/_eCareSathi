@@ -1,22 +1,30 @@
 var express = require('express');
 var router = express.Router();
+const User = require('../models/users');
 const passport = require('passport');
 const { render } = require('../app');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
-router.post('/register', async function(req, res) {
-  res.render('signUp', {title: 'Signup', ...req.body } );
-});
+// router.post('/register', async function(req, res) {
+//   res.render('signUp', {title: 'Signup', ...req.body } );
+// });
 
 router.post('/register', async (req, res) => {            //handles form submissions to create a new user
-  const { username, email, password } = req.body;
-  const newUser = new User({ username, email, password });
+  const { name, email, password, address, phoneNumber } = req.body;
+  const newUser = new User({ 
+    childName: [],
+    parentName: name,
+    email: email,
+    password: password,
+    homeAddress: address,
+    phoneNumber: phoneNumber 
+  });
   await newUser.save();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 router.get('/login', async function(req, res) {
