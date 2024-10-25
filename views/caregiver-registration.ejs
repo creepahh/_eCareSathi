@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caregiver Registration</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,11 +12,13 @@
             color: #333; /* Dark text color */
             margin: 0;
             padding: 20px;
-            display: flex;
+            /* display: flex; */
             justify-content: space-between; /* Space out content */
             align-items: flex-start; /* Align items at the top */
-            height: 100vh; /* Full viewport height */
-            overflow-y: auto; /* Enable scrolling */
+            /* height: 100vh;  */
+            /* Full viewport height */
+            /* overflow-y: auto;  */
+            /* Enable scrolling */
         }
         .form-container {
             background-color: #ffffff; /* White background for form */
@@ -77,7 +80,7 @@
 </head>
 <body>
     <div class="form-container">
-        <form id="caregiver-registration-form" action="/registerCaregiver" method="POST">
+        <form id="caregiver-registration-form" action="/caregiver/register" method="POST">
             <h2>Caregiver Registration</h2>
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" name="firstName" required>
