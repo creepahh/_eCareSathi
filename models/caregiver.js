@@ -27,6 +27,6 @@ caregiverSchema.pre('save', async function (next) {
   }
 });
 
-const Caregiver = mongoose.model('Caregiver', caregiverSchema);
+const Caregiver = mongoose.model('caregiver', caregiverSchema);
 
 module.exports = Caregiver;

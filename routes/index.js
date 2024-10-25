@@ -39,7 +39,16 @@ router.post('/login', passport.authenticate('local', {         //uses Passport t
   successRedirect: '/profile',
   failureRedirect: '/login',
 }));
-
+// // for landing
+// router.get('/caregiver', async function(req, res) {
+//   res.render('caregiver-registration', {title: 'caregiver' } );
+// });
+// router.get('/rider', async function(req, res) {
+//   res.render('driver-profile', {title: 'driver' } );
+// });
+// router.get('/parent', async function(req, res) {
+//   res.render('signUp', {title: 'user' } );
+// });
 
 router.get('/profile', (req, res) => {
   if (!req.isAuthenticated()) {
