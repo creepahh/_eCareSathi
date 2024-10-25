@@ -6,7 +6,7 @@ const { render } = require('../app');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('driver-profile');
+  res.render('rider-registration');
 });
 
 module.exports = router;

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Application</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4b5; /* Subtle orangish background */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center; /* Center content */
+            align-items: flex-start; /* Align items at the top */
+            height: 100vh; /* Full viewport height */
+            overflow-y: auto; /* Enable scrolling */
+        }
+        .container {
+            display: flex;
+            justify-content: space-between; /* Space out content */
+            align-items: flex-start; /* Align items at the top */
+            width: 80%; /* Full width */
+            max-width: 1200px; /* Max width */
+            margin: auto; /* Center the container */
+        }
+        .form-container {
+            background-color: #ffffff; /* White background for form */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 60%; /* Adjusted width */
+            margin-right: 20px; /* Space between form and image */
+        }
+        h2 {
+            color: #ff69b4; /* Pink title */
+            text-align: center;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555; /* Darker text for labels */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px); /* Full width with padding */
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #ff7f50; /* Coral background */
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%; /* Full width */
+        }
+        input[type="submit"]:hover {
+            background-color: #ff6347; /* Tomato color on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+        .image-container {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-container img {
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="rider-application-form" action="/registerRider" method="POST">
+                <h2>Rider Application Form</h2>
+                
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit phone number" required>
+
+                <label for="vehicleType">Vehicle Type:</label>
+                <input type="text" id="vehicleType" name="vehicleType" required>
+
+                <label for="licensePlate">License Plate:</label>
+                <input type="text" id="licensePlate" name="licensePlate" required>
+
+                <h3>Affiliation</h3>
+                <label for="affiliation">Are you affiliated with:</label>
+                <select id="affiliation" name="affiliation" required>
+                    <option value="">Select...</option>
+                    <option value="pathao">Pathao</option>
+                    <option value="indrive">Indrive</option>
+                    <option value="freelancing">Freelancing</option>
+                </select>
+
+                <br><br><label for="fourWheeler">Do you have a four-wheeler?</label>
+                <select id="fourWheeler" name="fourWheeler" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+                <h3>Availability</h3>
+                <label for="availableDays">Available Days:</label>
+                <input type="text" id="availableDays" name="availableDays" placeholder="e.g., Monday - Friday" required>
+
+                <label for="availableHours">Available Hours:</label>
+                <input type="text" id="availableHours" name="availableHours" placeholder="e.g., 7:00 AM - 6:00 PM" required>
+
+                <h3>Route Details</h3>
+                <label for="primaryDaycare">Primary Daycare:</label>
+                <input type="text" id="primaryDaycare" name="primaryDaycare" required>
+
+                <label for="dropOffLocation">Drop-off Location:</label>
+                <input type="text" id="dropOffLocation" name="dropOffLocation" required>
+
+                <label for="returnHomeLocation">Return Home Location:</label>
+                <input type="text" id="returnHomeLocation" name="returnHomeLocation" required>
+
+                <h3>Pickup and Drop Status</h3>
+                <label for="pickupStatus">Pickup Status:</label>
+                <input type="text" id="pickupStatus" name="pickupStatus" placeholder="e.g., Completed, Pending" required>
+
+                <label for="dropStatus">Drop Status:</label>
+                <input type="text" id="dropStatus" name="dropStatus" placeholder="e.g., Completed, Pending" required>
+
+                <input type="submit" value="Apply as Rider">
+            </form>
+        </div>
+        <div class="image-container">
+            <img src="/images/child5.png" alt="Rider Image"> <!-- Change the image source as needed -->
+        </div>
+    </div>
+</body>
+</html>

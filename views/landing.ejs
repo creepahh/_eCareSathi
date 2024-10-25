@@ -4,48 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eCareSathi Landing Page</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Arial', sans-serif; /* Changed to Arial for consistency */
+        /* body {
             margin: 0;
             padding: 0;
-            background-color: #ffe4b5; /* Subtle orangish background */
             display: flex;
-            flex-direction: column; /* Column layout */
+            flex-direction: column; 
             align-items: center;
             height: 100vh;
-            color: #333;
-        }
-        header {
+        } */
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif; /* Changed to Arial for consistency */
+            /* background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+            background-color: #ffe4b5; /* Subtle orangish background */
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 20px;
-            background-color: #ffffff; /* White background for header */
-            width: 100%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        .welcome-section {
-            margin-bottom: 20px;
-        }
-        .welcome-section h2 {
-            color: #ff69b4; /* Pink text */
-            font-size: 32px;
-        }
-        .welcome-section p {
-            font-size: 18px;
-            color: #555; /* Darker text for contrast */
-        }
-        nav {
-            margin: 15px 0;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #ff69b4; /* Pink link color */
-            font-weight: bold;
+            flex-direction: column;
+            color: #333;
+            /* height: 100vh;
+            overflow: auto; */
         }
         .container {
             display: flex;
+            margin: 0 auto 100px;
             justify-content: space-around;
             align-items: center;
             width: 80%;
@@ -104,18 +92,18 @@
         }
     </style>
 </head>
+<header>
+    <div class="welcome-section">
+        <h2>Welcome to eCareSathi</h2>
+        <p>Your journey towards better parenting starts here!</p>
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
 <body>
-    <header>
-        <div class="welcome-section">
-            <h2>Welcome to eCareSathi</h2>
-            <p>Your journey towards better parenting starts here!</p>
-        </div>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
     <div class="container">
         <div class="image-box">
             <img src="..//public/images/child5.png" alt="eCareSathi Image"> 
