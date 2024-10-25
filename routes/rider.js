@@ -1,4 +1,11 @@
+var express = require('express');
+var router = express.Router();
+
 const nodemailer = require('nodemailer');
+
+router.get('/', function(req, res, next) {
+    res.render('rider-registration');
+});
 
 router.post('/updateStatus', async (req, res) => {
     const { action, childName } = req.body;
@@ -38,14 +45,16 @@ router.patch('/:id/status', async (req, res) => {
 
 
 
-setInterval(async () => {
-    const response = await fetch('/fetchNotifications');
-    const notifications = await response.json();
-    const notificationList = document.getElementById('notification-list');
+// setInterval(async () => {
+//     const response = await fetch('/fetchNotifications');
+//     const notifications = await response.json();
+//     const notificationList = document.getElementById('notification-list');
     
-    notifications.forEach(notification => {
-        const li = document.createElement('li');
-        li.textContent = notification.message; // Assuming notification has a 'message' property
-        notificationList.appendChild(li);
-    });
-}, 5000); // Check every 5 seconds
+//     notifications.forEach(notification => {
+//         const li = document.createElement('li');
+//         li.textContent = notification.message; // Assuming notification has a 'message' property
+//         notificationList.appendChild(li);
+//     });
+// }, 5000); // Check every 5 seconds
+
+module.exports = router;
