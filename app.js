@@ -1,5 +1,6 @@
 const passport = require('passport');
 const session = require('express-session');
+require('dotenv').config()
 
 
 var createError = require('http-errors');
@@ -11,20 +12,32 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// var caregiverRoutes = require('./routes/caregivers');
+
 
 var app = express();
-const dbUrl = 'mongodb://localhost:27017/eCareSathi';
+const dbUrl = process.env.MONGO_URL;
 
-mongoose
-  .connect(dbUrl)
-  .then(() => console.log('Connected!'));
+// mongoose
+//   .connect(dbUrl)
+//   .then(() => console.log('Connected!'));
 
-var mongoose = require("mongoose");
+// var mongoose = require("mongoose");
 
 // //db connection
 // mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
 //   .then(() => console.log('Connected!'))
 //   .catch((e) => console.log(e));
+mongoose.connect(dbUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to MongoDB');
+});
 
 app.get('/users', (req, res) => {
   db.all(`SELECT * FROM users`, [], (err, rows) => {

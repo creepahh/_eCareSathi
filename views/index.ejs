@@ -66,6 +66,30 @@
             </div>
         </div>
     </div>
+    <section id="services" class="services-section">
+        <h2>Our Services</h2>
+        <p>Explore the variety of services we offer to make your experience seamless and enjoyable.</p>
+        <div class="service-cards">
+          <% const services = [
+            { image: "tutor.png", title: "Tutoring" },
+            { image: "child-painting.png", title: "Hobbies" },
+            { image: "update.png", title: "Monitoring" },
+            { image: "meal.png", title: "Meals" },
+            { image: "tutor2.png", title: "Lesson Planning" },
+            { image: "safety.png", title: "Safety" }
+          ]; %>
+    
+          <% services.forEach(service => { %>
+            <div class="card">
+              <div class="circle-image">
+                <img src="/images/<%= service.image %>" alt="<%= service.title %>">
+              </div>
+              <h3><%= service.title %></h3>
+              <p>Discover more about our <%= service.title %>.</p>
+            </div>
+          <% }); %>
+        </div>
+      </section>
     
 
     <script>
@@ -85,6 +109,18 @@
         signUp.addEventListener('click', () => toggleActive(true));
         loginBtn.addEventListener('click', () => toggleActive(false));
         signIn.addEventListener('click', () => toggleActive(false));
+
+        // Enable smooth scrolling for the 'Services' link
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+        });
+      });
+    });
     </script>
 
 </body>

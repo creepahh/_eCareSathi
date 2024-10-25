@@ -48,6 +48,29 @@ router.get('/profile', (req, res) => {
   res.render('profile', { user: req.user }); // Pass user data to EJS template
 });
 
+router.post('/submitCaregiver', (req, res) => {
+  
+  const caregiverData = req.body;
+  console.log(caregiverData);
+  
+  res.redirect('/');
+});
+
+router.post('/submitChildUpdate', (req, res) => {
+  const updateData = req.body;
+  console.log(updateData);
+  
+  res.redirect('/');
+});
+
+router.post('/submitRider', (req, res) => {
+  // handle rider form data
+  const riderData = req.body;
+  console.log(riderData);
+  // Save to database or perform further actions
+  res.redirect('/');
+});
+
 
 
 
