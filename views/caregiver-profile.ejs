@@ -168,7 +168,7 @@
             try{
                 const response = await fetch('/caregiver/get-profile-data?token='+token);
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 
                 // setting datas.
                 document.getElementById('caregiver-name').textContent = `${data.firstName} ${data.lastName}`;

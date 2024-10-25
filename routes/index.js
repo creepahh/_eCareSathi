@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/users');
+const Caregiver = require('../models/caregiver');
+const Rider = require('../models/riders');
 const passport = require('passport');
 const { render } = require('../app');
+const { generateToken } = require('../jwt');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,6 +19,32 @@ router.get('/signUp', function(req, res, next) {
 router.get('/signUp', function(req, res, next) {
   res.render('index');
 });
+
+router.get('/api/login', async function(req, res) {
+  try {
+    var currentModel;
+    switch (req.query.type) {
+      case 'caregiver':
+        currentModel = Caregiver;
+        break;
+      case 'parent':
+        currentModel = User;
+        break;
+      case 'rider':
+        currentModel = Rider;
+        break;
+    }
+
+    const currentUser = await currentModel.findOne({email: req.query.email});
+    if (currentUser) {
+      return res.json({token: generateToken(currentUser)});
+    }
+    res.json({});
+  }
+  catch (err) {
+    res.json({});
+  }
+}); 
 
 // router.post('/register', async function(req, res) {
 //   res.render('signUp', {title: 'Signup', ...req.body } );
