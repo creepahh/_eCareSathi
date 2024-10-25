@@ -79,6 +79,22 @@ app.get('/services', (req, res) => {
   res.json(services);
 });
 
+const createRide = async (riderId, childId, pickupLocation, dropoffLocation) => {
+  const ride = new Ride({
+    riderId,
+    childId,
+    pickupLocation,
+    dropoffLocation,
+  });
+  await ride.save();
+
+  // Add the ride to the rider's rides array
+  const rider = await Rider.findById(riderId);
+  rider.rides.push(ride._id);
+  await rider.save();
+
+  return ride;
+};
 
 // app.post('/signup', (req, res) => {
 //     const { childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies } = req.body;
