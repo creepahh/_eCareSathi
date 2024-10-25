@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const caregiverSchema = new mongoose.Schema({
   firstName: { type: String, required: true },

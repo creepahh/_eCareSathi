@@ -6,6 +6,14 @@ const { render } = require('../app');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.render('landing');
+});
+
+router.get('/signUp', function(req, res, next) {
+  res.render('index');
+});
+
+router.get('/signUp', function(req, res, next) {
   res.render('index');
 });
 

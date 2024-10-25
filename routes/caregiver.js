@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Caregiver = require('../models/Caregiver'); // Import the Caregiver model
+const Caregiver = require('../models/caregiver'); // Import the Caregiver model
+
+router.get('/', function (req, res) {
+  res.render('caregiver-registration');
+});
 
 // Caregiver registration route
 router.post('/registerCaregiver', async (req, res) => {
