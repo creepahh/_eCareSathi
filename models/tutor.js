@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const tutorSchema = new mongoose.Schema({
-    childName: { type: String, required: true, unique: true },
-    parentName: { type: String, required: true, unique: true },
-    schoolAddress: { type: String, required: true },
-    homeAddress: { type: String, required: true },
-    
+    tutorName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: true },
+    homeAddress: { type: String },
+    expertise: { type: [String] },
+    status: { type: String, enum: ['active', 'inactive'], default: 'active' },
 });
 
-const Tutor = mongoose.model('tutors', tutorSchema);
-module.exports = Tutor;
+module.exports = mongoose.model('Tutor', tutorSchema);

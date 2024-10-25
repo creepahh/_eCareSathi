@@ -16,6 +16,9 @@ var usersRouter = require('./routes/users');
 var caregiverRouter = require('./routes/caregivers');
 
 
+var riderRouter = require('./routes/riders');
+var tutorRouter = require('./routes/tutor');
+
 var app = express();
 const dbUrl = process.env.MONGO_URL;
 
@@ -64,6 +67,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('./caregiver', caregiverRouter);
+app.use('/api/riders', riderRouter);
+app.use('/api/tutors', tutorRouter);
 
 
 // catch 404 and forward to error handler

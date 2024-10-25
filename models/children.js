@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
 
 const childrenSchema = new mongoose.Schema({
-    childName: { type: String, required: true, unique: true },
-    parentName: { type: String, required: true, unique: true },
-    schoolAddress: { type: String, required: true },
-    homeAddress: { type: String, required: true },
-    
+    childName: { type: String, required: true },
+    parentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    age: { type: Number },
 });
 
-const Children = mongoose.model('childrens', childrenSchema);
-module.exports = Children;
+module.exports = mongoose.model('Children', childrenSchema);

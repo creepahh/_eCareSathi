@@ -26,6 +26,16 @@ router.post('/updateStatus', async (req, res) => {
     res.send('Status updated and parent notified!');
 });
 
+router.patch('/:id/status', async (req, res) => {
+    try {
+        const rider = await Rider.findByIdAndUpdate(req.params.id, { pickupDropStatus: req.body.status }, { new: true });
+        if (!rider) return res.status(404).send();
+        res.send(rider);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
 setInterval(async () => {
     const response = await fetch('/fetchNotifications');
     const notifications = await response.json();
