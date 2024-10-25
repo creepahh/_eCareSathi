@@ -1,3 +1,151 @@
-<h1>Welcome, <%= user.username %>!</h1>
-<p>Email: <%= user.email %></p>
-<!-- Display other user-specific information -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header h1 {
+            text-align: center;
+        }
+
+        .profile-picture {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .child-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            margin: 20px 0;
+        }
+
+        .profile-details h2 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .care-schedule {
+            margin-top: 30px;
+            background-color: #ffefef;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .care-schedule h3 {
+            text-align: center;
+            color: #4b1513; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .care-type {
+            font-weight: bold;
+            color: #afa54c; 
+        }
+
+        .care-status {
+            border-radius: 12px;
+            padding: 5px 10px;
+            color: white;
+            background-color: #d9534f; 
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #5cb85c; 
+        }
+    </style>
+</head>
+<header>
+    <div class="welcome-section">
+        <h2>Welcome to eCareSathi</h2>
+        <p>Your journey towards better parenting starts here!</p> 
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>User Profile</h1>
+        </div>
+        
+        <div class="profile-picture">
+            <img src="/images/dummy-child.jpg" alt="Child's Photo" class="child-photo">
+        </div>
+
+        <div class="profile-details">
+            <h2>Child's Name</h2>
+            <p><strong>Parent's Name:</strong> Parent's Name Here</p>
+            <p><strong>Parent's Work Address:</strong> Parent's Work Address Here</p>
+            <p><strong>Child's Age:</strong> 5</p>
+            <p><strong>Child's School Name:</strong> School Name Here</p>
+            <p><strong>Child's School Address:</strong> School Address Here</p>
+            <p><strong>School End Timing:</strong> 3:00 PM</p>
+            <p><strong>Hobbies:</strong> Painting, Soccer, Reading</p>
+        </div>
+
+        <div class="care-schedule">
+            <h3>Scheduled Care Times</h3>
+            <ul>
+                <li>
+                    <span class="care-type">Pickup</span>
+                    <span>Time: 2:00 PM</span>
+                    <span class="care-status">Pending</span>
+                </li>
+                <li>
+                    <span class="care-type">Homework Assistance</span>
+                    <span>Time: 4:00 PM</span>
+                    <span class="care-status status-completed">Completed</span>
+                </li>
+                <li>
+                    <span class="care-type">Drop off</span>
+                    <span>Time: 5:00 PM</span>
+                    <span class="care-status">Pending</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

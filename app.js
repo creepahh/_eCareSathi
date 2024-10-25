@@ -1,76 +1,102 @@
+const passport = require('passport');
+const session = require('express-session');
+require('dotenv').config()
 
-const express = require('express');
-const createError = require('http-errors');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
 
-// Import route handlers
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const signupRouter = require('./routes/signup');
-const pickupRouter = require('./routes/pickup');
-const registerRouter = require('./routes/register');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var mongoose = require('mongoose');
 
-const app = express();
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+// var caregiverRoutes = require('./routes/caregivers');
 
-// Middleware setup
+
+var app = express();
+const dbUrl = process.env.MONGO_URL;
+
+// mongoose
+//   .connect(dbUrl)
+//   .then(() => console.log('Connected!'));
+
+// var mongoose = require("mongoose");
+
+// //db connection
+// mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
+//   .then(() => console.log('Connected!'))
+//   .catch((e) => console.log(e));
+mongoose.connect(dbUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log('Connected to MongoDB');
+});
+
+app.get('/users', (req, res) => {
+  db.all(`SELECT * FROM users`, [], (err, rows) => {
+      if (err) {
+          res.status(500).send(err.message);
+          return;
+      }
+      res.json(rows); // Send the user data 
+  });
+});
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
-// View engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs'); // Set the view engine to EJS
-
-// User Data
-let users = {
-    parents: [{ id: 1, name: "John Doe", notifications: [] }],
-    caregivers: [{ id: 1, name: "Jane Smith", notifications: [] }],
-    riders: [{ id: 1, name: "Driver A", notifications: [] }]
-};
-
-let scheduledPickups = [];
-
-// Function to send notifications
-const sendNotification = (userId, message) => {
-    for (let userType in users) {
-        const user = users[userType].find(u => u.id === userId);
-        if (user) {
-            user.notifications.push(message);
-            break;
-        }
-    }
-};
-
-// Routes setup
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/signup', signupRouter);
-app.use('/register', registerRouter);
-app.use('/pickup', pickupRouter({  users,scheduledPickups, sendNotification })); // Custom pickup router
 
-// Catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    next(createError(404));
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-// Error handler
-app.use(function (err, req, res, next) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-    res.status(err.status || 500);
-    res.render('error');
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-// Start the server
-app.listen(4000, () => {
-    console.log('Server is running on http://localhost:4000');
+//services
+app.get('/services', (req, res) => {
+  const services = ['pickup', 'drop', 'homework assistance', 'hobbies boost'];
+  res.json(services);
 });
+
+
+// app.post('/signup', (req, res) => {
+//     const { childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies } = req.body;
+//     const stmt = db.prepare(`INSERT INTO users (child_name, parent_name, school_address, home_address, age, school_name, hobbies)
+//                              VALUES (?, ?, ?, ?, ?, ?, ?)`);
+//     stmt.run(childName, parentName, schoolAddress, homeAddress, age, schoolName, hobbies, (err) => {
+//         if (err) {
+//             return res.status(500).send(err.message);
+//         }
+//         stmt.finalize();
+//         res.redirect('/users'); // Redirect to the users page to see the data
+//     });
+// });
 
 module.exports = app;

@@ -28,18 +28,20 @@ a {
 body{
   background-color: #c9d6ff;
   background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-direction: column;
-  height: 100vh;
-  overflow: auto;
+  /* height: 100vh;
+  overflow: auto; */
 }
 #container {
   display: flex;
-  position: relative;
+  /* position: relative; */
   justify-content: space-between;
-  flex: 1; /* Take up equal space */
+  /* flex: 1; */
+  /* Take up equal space */
   /* padding: 20px;  */
   /* Space around the forms */
 }
@@ -57,7 +59,10 @@ body{
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  height: 480px;
+  margin: 0 auto 100px;
+  /* height: fit-content; */
+  /* margin-top: 00px; */
 }
 
 .container p{
@@ -122,6 +127,7 @@ body{
   /* position: absolute; */
   /* top: 0; */
   height: 100%;
+  width: 50%;
   transition: all 0.6s ease-in-out;
 }
 
@@ -129,6 +135,11 @@ body{
   /* left: 0; */
   width: 50%;
   z-index: 2;
+}
+
+.form-container span {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /* .container.active .sign-in{
@@ -244,123 +255,69 @@ body{
 .active .toggle .toggle-left {
   display: block;
 }
-/* General container styling */
+/* services section */
 
-/* Table styling */
-table {
-  width: 100%;
-  border-collapse: collapse; /* Ensures no double borders */
-  border-spacing: 0; /* Removes gaps between table cells */
-  margin-top: 20px;
+nav ul {
+  list-style: none;
+  background-color: #333;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
-/* Header styling */
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-  padding: 12px 15px;
-  border-bottom: 2px solid #ddd;
-  text-align: left;
+nav ul li {
+  margin: 0 1rem;
 }
 
-/* Cell styling */
-td {
-  padding: 10px 15px; /* Adds space inside the table cells */
-  border-bottom: 1px solid #ddd;
-}
-
-/* Alternating row color */
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-/* Back to Home link styling */
-a {
-  display: inline-block;
-  margin-top: 20px;
+nav ul li a {
+  color: #fff;
   text-decoration: none;
-  color: #007bff;
 }
-
-a:hover {
-  text-decoration: underline;
-}
-/* General styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+services-section {
   text-align: center;
+  padding: 2rem;
+  background: #e9ecef;
 }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
+.service-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
   background-color: #fff;
-  padding: 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  width: 200px;
+  transition: transform 0.3s;
 }
 
-h1 {
-  color: #333;
-  margin-bottom: 20px;
+.card:hover {
+  transform: scale(1.05);
 }
 
-p {
-  color: #666;
-  margin-bottom: 30px;
+.circle-image {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
-/* Form styles */
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #333;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
+.circle-image img {
   width: 100%;
-  font-size: 16px;
+  height: auto;
 }
 
-select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
-  width: 100%;
-  font-size: 16px;
-  appearance: none; /* Remove default arrow on select */
+.card h3 {
+  margin: 1rem 0 0.5rem;
 }
 
-/* Button styles */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
+.card p {
+  color: #555;
 }

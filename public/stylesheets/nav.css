@@ -1,0 +1,20 @@
+header {
+    background-color: #af984c;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.welcome-section {
+    margin: 20px 0;
+}
+
+nav a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
