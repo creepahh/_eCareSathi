@@ -6,15 +6,43 @@
     <title>eCareSathi Landing Page</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', sans-serif;
+            font-family: 'Arial', sans-serif; /* Changed to Arial for consistency */
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff; /* Light blue background */
+            background-color: #ffe4b5; /* Subtle orangish background */
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Column layout */
             align-items: center;
             height: 100vh;
             color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff; /* White background for header */
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .welcome-section {
+            margin-bottom: 20px;
+        }
+        .welcome-section h2 {
+            color: #ff69b4; /* Pink text */
+            font-size: 32px;
+        }
+        .welcome-section p {
+            font-size: 18px;
+            color: #555; /* Darker text for contrast */
+        }
+        nav {
+            margin: 15px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #ff69b4; /* Pink link color */
+            font-weight: bold;
         }
         .container {
             display: flex;
@@ -26,25 +54,29 @@
             background-color: #ffffff; /* White background */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border-radius: 20px;
+            margin-top: 20px; /* Space from header */
+            flex-wrap: wrap; /* Wraps elements if needed */
         }
         .image-box {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-right: 20px; /* Space between image and buttons */
         }
         .image-box img {
-            max-width: 80%;
+            max-width: 90%; /* Responsive image */
             border-radius: 20px;
-            border: 5px solid #ff69b4; /* Pink border */
+            border: 5px solid #d1c3ca; /* Pink border */
         }
         .options-box {
             flex: 1;
             text-align: center;
+            padding: 20px;
         }
         .options-box h2 {
             font-size: 28px;
-            color: #ff69b4; /* Pink text */
+            color: #e4c05c; /* Pink text */
             margin-bottom: 10px;
         }
         .options-box p {
@@ -53,7 +85,7 @@
             color: #555; /* Darker text for contrast */
         }
         .options-box button {
-            background-color: #ff7f50; 
+            background-color: #c9b1a9; 
             color: white;
             border: none;
             padding: 15px 25px;
@@ -64,7 +96,7 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         .options-box button:hover {
-            background-color: #ff6347; /* Tomato color on hover */
+            background-color: #e9b466; 
             transform: scale(1.05); /* Slightly enlarge on hover */
         }
         .options-box button:focus {
@@ -76,17 +108,17 @@
     <header>
         <div class="welcome-section">
             <h2>Welcome to eCareSathi</h2>
-            <p>Your journey towards better parenting starts here!</p> 
+            <p>Your journey towards better parenting starts here!</p>
         </div>
         <nav>
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#contact">Contact</a>
         </nav>
-</header>
+    </header>
     <div class="container">
         <div class="image-box">
-            <img src="child-hobbies.png" alt="eCareSathi Image">
+            <img src="..//public/images/child5.png" alt="eCareSathi Image"> 
         </div>
         <div class="options-box">
             <h2>Join eCareSathi</h2>
