@@ -16,10 +16,10 @@ const caregiverSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-// Pre-save middleware to hash the password before saving to the database
+
 caregiverSchema.pre('save', async function (next) {
   try {
-    const salt = await bcrypt.genSalt(10); // Generate salt
+    const salt = await bcrypt.genSalt(10); // Generate salt -random value 
     this.password = await bcrypt.hash(this.password, salt); // Hash the password
     next();
   } catch (error) {
