@@ -1,12 +1,65 @@
 var express = require('express');
 var router = express.Router();
-
 const nodemailer = require('nodemailer');
+const mongoose = require('mongoose');
+const Rider = require('../models/riders');
+const { generateToken, verifyToken } = require('../jwt');
 
 router.get('/', function(req, res, next) {
     res.render('rider-registration');
 });
 
+router.get('/profile', function (req, res) {
+    res.render('rider-profile');
+});
+  
+router.get('/get-profile-data', async function (req, res) {
+    try {
+      const request = req.query.token;
+      // console.log(req.query, typeof(request));
+      const { id, email } = verifyToken(request);
+      const rider = await rider.findOne({ email: email });
+      // console.log("hi");
+      res.json(rider);
+    }
+    catch (err) {
+      res.end(err);
+    }
+});
+  
+router.post('/register', async (req, res) => {
+    try {
+      // Extract rider information from the form (req.body)
+      const {
+        vehicleType,
+        licensePlate,
+        contactNumber,
+        experience,
+        availability
+      } = req.body;
+  
+      const newRiderr = new Rider({
+        vehicleType,
+        licensePlate,
+        contactNumber,
+        experience,
+        availability
+    });
+  
+      // Save the new rider to the database
+      const newRider = await newRider.save();
+      console.log(newRider);
+      const token = generateToken(newRider);
+      console.log(token);
+      res.status(201).redirect('/rider/profile?token='+token); // Redirect to login page after successful registration
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error registering rider');
+    }
+});
+  
+
+// Route to update rider status
 router.post('/updateStatus', async (req, res) => {
     const { action, childName } = req.body;
 
@@ -16,7 +69,7 @@ router.post('/updateStatus', async (req, res) => {
     // Send email notification to parent
     if (parentEmail) {
         const transporter = nodemailer.createTransport({
-            // Configure your email service
+            // Configure your email service here
         });
 
         const mailOptions = {
@@ -33,6 +86,7 @@ router.post('/updateStatus', async (req, res) => {
     res.send('Status updated and parent notified!');
 });
 
+// Route to update rider status via PATCH
 router.patch('/:id/status', async (req, res) => {
     try {
         const rider = await Rider.findByIdAndUpdate(req.params.id, { pickupDropStatus: req.body.status }, { new: true });
@@ -42,19 +96,5 @@ router.patch('/:id/status', async (req, res) => {
         res.status(400).send(error);
     }
 });
-
-
-
-// setInterval(async () => {
-//     const response = await fetch('/fetchNotifications');
-//     const notifications = await response.json();
-//     const notificationList = document.getElementById('notification-list');
-    
-//     notifications.forEach(notification => {
-//         const li = document.createElement('li');
-//         li.textContent = notification.message; // Assuming notification has a 'message' property
-//         notificationList.appendChild(li);
-//     });
-// }, 5000); // Check every 5 seconds
 
 module.exports = router;
