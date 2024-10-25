@@ -1,7 +1,7 @@
- <!-- <h1>Child Pickup Notifications</h1>
+ <h1>Child Pickup Notifications</h1>
 
     <h2>Schedule a Pickup</h2>
-    <form action="/schedule-pickup" method="POST">
+    <form action="/schedule_pickup" method="POST">
         <label for="parentId">Select Parent:</label>
         <select name="parentId" required>
             <% users.parents.forEach(parent => { %>
@@ -25,7 +25,7 @@
         <button type="submit">Schedule Pickup</button>
     </form>
 
-    <h2>Notifications</h2>
+    <!-- <h2>Notifications</h2>
     <ul>
         <% users.parents.forEach(parent => { %>
             <li><strong><%= parent.name %></strong> Notifications:
@@ -54,17 +54,17 @@
                 </ul>
             </li>
         <% }); %>
-    </ul>
+    </ul> -->
 
     <h2>Update Pickup Status</h2>
-    <form action="/pickup-completed" method="POST">
+    <form action="/pickup_completed" method="POST">
         <label for="pickupId">Pickup ID:</label>
         <input type="number" name="pickupId" required>
         <button type="submit">Mark as Picked Up</button>
     </form>
 
-    <form action="/dropoff-completed" method="POST">
+    <form action="/dropoff_completed" method="POST">
         <label for="pickupId">Pickup ID:</label>
         <input type="number" name="pickupId" required>
         <button type="submit">Mark as Dropped Off</button>
-    </form> -->
+    </form>

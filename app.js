@@ -53,7 +53,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/register', registerRouter);
-app.use('/pickup', pickupRouter({ scheduledPickups, sendNotification })); // Custom pickup router
+app.use('/pickup', pickupRouter({  users,scheduledPickups, sendNotification })); // Custom pickup router
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduled Pickups</title>
+</head>
+<body>
+    <h1>Scheduled Pickups</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Pickup ID</th>
+                <th>Parent ID</th>
+                <th>Rider ID</th>
+                <th>Pickup Time</th>
+                <th>Drop-off Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pickups.forEach(pickup => { %>
+                <tr>
+                    <td><%= pickup.pickupId %></td>
+                    <td><%= pickup.parentId %></td>
+                    <td><%= pickup.riderId %></td>
+                    <td><%= pickup.pickupTime %></td>
+                    <td><%= pickup.dropoffTime %></td>
+                    <td><%= pickup.status %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/">Back to Home</a>
+</body>
+</html>
