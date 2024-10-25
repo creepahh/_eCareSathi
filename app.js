@@ -7,11 +7,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+const dbUrl = 'mongodb://192.168.1.10:27017/eCareSathi';
+
+mongoose
+  .connect(dbUrl)
+  .then(() => console.log('Connected!'));
 
 var mongoose = require("mongoose");
 

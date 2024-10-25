@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
+const { render } = require('../app');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/register', async function(req, res) {
-  res.render('register', {title: 'Signup' } );
+  res.render('signUp', {title: 'Signup', ...req.body } );
 });
 
 router.post('/register', async (req, res) => {            //handles form submissions to create a new user
@@ -19,7 +20,11 @@ router.post('/register', async (req, res) => {            //handles form submiss
 });
 
 router.get('/login', async function(req, res) {
-res.render('user', {title: 'user' } );
+  res.render('user', {title: 'user' } );
+});
+
+router.post('/signup', async function(req, res) {
+  res.end(JSON.stringify(req.body));
 });
 
 router.post('/login', passport.authenticate('local', {         //uses Passport to authenticate users
