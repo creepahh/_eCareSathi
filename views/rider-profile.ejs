@@ -47,7 +47,7 @@
             text-align: center;
         }
 
-        .pickup-drop-status, .route-details {
+        .pickup-drop-status {
             margin-top: 30px;
             background-color: #ffefef;
             border-radius: 8px;
@@ -76,16 +76,33 @@
             color: #afa54c; 
         }
 
-        .status {
-            border-radius: 12px;
-            padding: 5px 10px;
-            color: white;
-            background-color: #d9534f; 
-            display: inline-block;
+        .status-select {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            margin-right: 10px;
+            width: 100px;
         }
 
-        .status-completed {
-            background-color: #5cb85c; 
+        .notes-input {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            margin-right: 10px;
+            width: 150px;
+        }
+
+        .update-button {
+            padding: 5px 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .update-button:hover {
+            background-color: #4cae4c;
         }
     </style>
 </head>
@@ -111,74 +128,99 @@
         </div>
 
         <div class="profile-details">
-            <h2>Rider's Name</h2>
-            <p><strong>Vehicle Type:</strong> SUV</p>
-            <p><strong>License Plate:</strong> ABC-1234</p>
-            <p><strong>Contact Number:</strong> (123) 456-7890</p>
-            <p><strong>Experience:</strong> 3 years</p>
+            <h2 id="rider-name">John Smith</h2>
+            <p><strong>Vehicle Type:</strong> <span id="vehicle-type">Sedan</span></p>
+            <p><strong>License Plate:</strong> <span id="license-plate">XYZ 1234</span></p>
+            <p><strong>Contact Number:</strong> <span id="contact-number">(123) 456-7890</span></p>
+            <p><strong>Experience:</strong> <span id="experience">5 years</span></p>
         </div>
 
         <div class="availability">
             <h3>Rider Availability</h3>
-            <p><strong>Available Days:</strong> Monday - Friday</p>
-            <p><strong>Available Hours:</strong> 7:00 AM - 6:00 PM</p>
+            <p><strong>Available Days:</strong> <span id="available-days">Monday - Friday</span></p>
+            <p><strong>Available Hours:</strong> <span id="available-hours">8:00 AM - 6:00 PM</span></p>
         </div>
 
         <div class="route-details">
             <h3>Route Details</h3>
-            <p><strong>Primary Daycare:</strong> Sunshine Daycare</p>
-            <p><strong>Drop-off Location:</strong> 123 Happy Lane, City, State</p>
-            <p><strong>Return Home Location:</strong> 456 Joy Street, City, State</p>
+            <p><strong>Primary Daycare:</strong> <span id="daycare-name">Little Stars Daycare</span></p>
+            <p><strong>Drop-off Location:</strong> <span id="dropoff-location">123 Main St, Springfield</span></p>
+            <p><strong>Return Home Location:</strong> <span id="return-location">456 Elm St, Springfield</span></p>
         </div>
 
         <div class="pickup-drop-status">
             <h3>Pickup and Drop Status</h3>
-            <ul>
+            <ul id="status-container">
                 <li>
-                    <span class="drop-pickup-type">Pickup</span>
-                    <span>Time: 2:00 PM</span>
-                    <span class="status status-completed">Completed</span>
+                    <span class="drop-pickup-type">Picking Up</span>
+                    <span>Child: Emily</span>
+                    <select class="status-select">
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <input type="text" class="notes-input" placeholder="Notes">
+                    <button class="update-button" onclick="updateStatus('Emily', this)">Update</button>
                 </li>
                 <li>
-                    <span class="drop-pickup-type">Drop Off</span>
-                    <span>Time: 3:00 PM</span>
-                    <span class="status">Pending</span>
+                    <span class="drop-pickup-type">Dropping Off</span>
+                    <span>Child: Liam</span>
+                    <select class="status-select">
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <input type="text" class="notes-input" placeholder="Notes">
+                    <button class="update-button" onclick="updateStatus('Liam', this)">Update</button>
                 </li>
                 <li>
-                    <span class="drop-pickup-type">Pickup</span>
-                    <span>Time: 5:00 PM</span>
-                    <span class="status">Pending</span>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="status-update">
-            <h3>Update Status</h3>
-            <form id="status-update-form" action="/updateStatus" method="POST">
-                <label for="action">Action:</label>
-                <select id="action" name="action" required>
-                    <option value="pickup">Picking Up</option>
-                    <option value="dropoff">Dropping Off</option>
-                </select>
-        
-                <label for="childName">Child's Name:</label>
-                <input type="text" id="childName" name="childName" required>
-        
-                <input type="submit" value="Update Status">
-            </form>
-        </div>
-        
-
-        <div class="handover-confirmation">
-            <h3>Child Handover Confirmation</h3>
-            <ul>
-                <li>
-                    <span class="drop-pickup-type">Handover to Parent</span>
-                    <span>Time: 3:15 PM</span>
-                    <span class="status status-completed">Completed</span>
+                    <span class="drop-pickup-type">Picking Up</span>
+                    <span>Child: Noah</span>
+                    <select class="status-select">
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <input type="text" class="notes-input" placeholder="Notes">
+                    <button class="update-button" onclick="updateStatus('Noah', this)">Update</button>
                 </li>
             </ul>
         </div>
     </div>
+
+    <script>
+        async function updateStatus(childName, button) {
+    const li = button.parentElement;
+    const select = li.querySelector('.status-select');
+    const input = li.querySelector('.notes-input');
+    const newStatus = select.value; // Get the selected status
+    const notes = input.value; // Get any notes
+
+    try {
+        const response = await fetch('/update-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                childName: childName,
+                newStatus: newStatus,
+                notes: notes // Send notes if needed
+            })
+        });
+
+        if (response.ok) {
+            alert('Status updated successfully!');
+            // Update the UI here to reflect the change
+            li.querySelector('.drop-pickup-type').textContent = `Status: ${newStatus}`; // Update displayed status
+        } else {
+            alert('Failed to update status.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while updating the status.');
+    }
+}
+
+    </script>  
+    
+        
 </body>
 </html>
