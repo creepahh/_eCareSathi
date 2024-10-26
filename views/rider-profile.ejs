@@ -186,40 +186,88 @@
     </div>
 
     <script>
-        async function updateStatus(childName, button) {
-    const li = button.parentElement;
-    const select = li.querySelector('.status-select');
-    const input = li.querySelector('.notes-input');
-    const newStatus = select.value; // Get the selected status
-    const notes = input.value; // Get any notes
+        const searchParams = new URLSearchParams(window.location.search);
+let token = searchParams.get('token');
 
+if (searchParams.has('token')) {
+    window.localStorage.setItem('token', token);
+} else {
+    token = window.localStorage.getItem('token');
+}
+
+if (token) {
+    // User is authorized
+    getRiderData(token);
+} else {
+    // User isn't authorized
+    console.log('User is not authorized');
+}
+
+async function getRiderData(token) {
     try {
-        const response = await fetch('/update-status', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                childName: childName,
-                newStatus: newStatus,
-                notes: notes // Send notes if needed
-            })
-        });
+        const response = await fetch('/rider/get-profile-data?token=' + token);
+        const data = await response.json();
 
-        if (response.ok) {
-            alert('Status updated successfully!');
-            // Update the UI here to reflect the change
-            li.querySelector('.drop-pickup-type').textContent = `Status: ${newStatus}`; // Update displayed status
-        } else {
-            alert('Failed to update status.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while updating the status.');
+        // Ensure email is retrieved correctly
+        const email = data.email; // Adjust according to the actual data structure
+
+        // Set rider data in the DOM
+        document.getElementById('rider-name').textContent = data.fullName;
+        document.getElementById('vehicle-type').textContent = data.vehicleType;
+        document.getElementById('license-plate').textContent = data.licensePlate;
+        document.getElementById('contact-number').textContent = data.phone;
+
+        fetchRiderSchedules(email);
+        setInterval(() => fetchRiderSchedules(email), 5000); // Refresh schedules every 5 seconds
+    } catch (err) {
+        console.error('Error fetching rider data:', err);
     }
 }
 
-    </script>  
+
+async function fetchRiderSchedules(email) {
+    try {
+        const response = await fetch('/rider/schedules?email=' + email);
+        
+        // Log the response for debugging
+        const text = await response.text(); // Read response as text
+        console.log(text); // Log the raw response
+
+        const data = JSON.parse(text); // Try parsing as JSON
+        console.log(data);
+        
+        const container = document.getElementById('schedule-container');
+        container.innerHTML = ''; // Clear previous schedules
+
+        data.forEach((schedule) => {
+            const li = document.createElement('li');
+            const label = document.createElement('span');
+            const deadline = document.createElement('span');
+            const status = document.createElement('span');
+
+            label.classList.add('care-type');
+            status.classList.add('care-status');
+
+            if (schedule.status === 'completed') {
+                status.classList.add('status-completed');
+            }
+
+            label.textContent = schedule.label; // e.g., "Picking Up: Child's Name"
+            deadline.textContent = schedule.deadline; // e.g., "10:00 AM"
+            status.textContent = schedule.status; // e.g., "Pending" or "Completed"
+
+            li.appendChild(label);
+            li.appendChild(deadline);
+            li.appendChild(status);
+            container.appendChild(li);
+        });
+    } catch (err) {
+        console.error('Error fetching rider schedules:', err);
+    }
+}
+
+
+    </script>
     
         
 </body>

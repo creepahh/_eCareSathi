@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt'); // If you're planning to hash passwords
+const bcrypt = require('bcrypt');
+const Schedule = require('../models/schedule');
 
 const riderSchema = new mongoose.Schema({
   name: { type: String, required: true },
