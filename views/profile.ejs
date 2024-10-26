@@ -155,5 +155,43 @@
             </ul>
         </div>
     </div>
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        var token = searchParams.get('token');
+        if(searchParams.has('token')) {
+            token = searchParams.get('token');
+            window.localStorage.setItem('token', token);
+        }
+        else{
+            token = window.localStorage.getItem('token');
+        }
+        if(token){
+            // user is authorized
+            getData(token);
+        }
+        else {
+            // user isnt authorized
+        }
+        async function getData(token) {
+            try{
+                const response = await fetch('/get-profile-data?token='+token);
+                const data = await response.json();
+                console.log(data);
+                
+                // setting datas.
+                // document.getElementById('caregiver-name').textContent = `${data.firstName} ${data.lastName}`;
+                // document.getElementById('caregiver-qualification').textContent = data.qualification;
+                // document.getElementById('caregiver-experience').textContent = `${data.experience} years`;
+                // document.getElementById('caregiver-special-skill').textContent = data.specialSkills;
+                // document.getElementById('caregiver-phone').textContent = data.phone;
+                // document.getElementById('daycare-name').textContent = data.daycareName;
+                // document.getElementById('daycare-address').textContent = data.daycareAddress;
+                
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
 </body>
 </html>
