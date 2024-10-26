@@ -1,22 +1,30 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt'); // If you're planning to hash passwords
 
-const rideSchema = new mongoose.Schema({
-    childId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Child' },
-    riderId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Rider' },
-    pickupDropStatus: { type: String, enum: ['pending', 'completed'], default: 'pending' },
-    pickupLocation: { type: String, required: true },
-    dropoffLocation: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+const riderSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  vehicleType: { type: String, required: true },
+  licensePlate: { type: String, required: true, unique: true },
+  contactNumber: { type: String, required: true },
+  experience: { type: Number, required: true },
+  availability: {
+      days: { type: [String], required: true },
+      hours: { type: String, required: true },
+  },
+  profilePicture: { type: String } // URL to rider's photo
 });
 
 
-
-// Update `updatedAt` on save
-rideSchema.pre('save', function(next) {
-    this.updatedAt = Date.now();
+riderSchema.pre('save', async function (next) {
+  try {
+    // If you are storing passwords, hash them here
+    // const salt = await bcrypt.genSalt(10);
+    // this.password = await bcrypt.hash(this.password, salt);
     next();
+  } catch (error) {
+    next(error);
+  }
 });
 
-const Ride = mongoose.model('Ride', rideSchema);
-module.exports = Ride;
+const Rider = mongoose.model('Rider', riderSchema);
+module.exports = Rider;
