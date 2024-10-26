@@ -226,8 +226,30 @@ body {
   width: 50%;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
   /* transform: translateX(0); */
   transition: all 0.6s ease-in-out;
+  gap: 0.8rem;
+}
+
+.toggle .childName {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.toggle .childName input {
+  background-color: #f8f8f8;
+  border: 0.1rem solid #f0f0f0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
 }
 
 .container.active .toggle {
