@@ -28,10 +28,10 @@
         <div class="container" id="container">
             <!-- Sign In Form -->
             <div class="form-container sign-in">
-                <form action="/login" method="POST">
+                <form onsubmit="return login(this)">
                     <h2>Sign In</h2>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Password" required>
+                    <input type="email" placeholder="Email" name="email" required>
+                    <input type="password" placeholder="Password" name="password" required>
                     <div class="account-selector">
                       <div><input type="radio" name="type" value="caregiver"><label for="type">Caregiver</label></div>
                       <div><input type="radio" name="type" value="parent"><label for="type">Parent</label></div>
@@ -126,6 +126,38 @@
         });
       });
     });
+    
+    async function loginHandler(form) {
+      try {
+        const response = await fetch(`/api/login?email=${form.email.value}&password=${form.password.value}&type=${form.type.value}`);
+        const {token} = await response.json();
+        if (token){
+          window.localStorage.setItem('token', token);
+          switch (form.type.value) {
+            case 'caregiver':
+              window.location.href = '/caregiver/profile';
+              break;
+            case 'parent':
+              window.location.href = '/profile';  
+              break;
+            case 'rider':
+              window.location.href = '/rider/profile';
+              break;
+          }
+        }
+        console.log(token);
+      }
+      catch (err) {
+        console.error(err);
+      }
+      return false;
+    }
+
+    function login(form) {
+      loginHandler(form);
+      return false;
+    }
+
     </script>
 
 </body>

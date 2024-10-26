@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/users');
+const Caregiver = require('../models/caregiver');
+const Rider = require('../models/riders');
+const Schedule = require('../models/schedule');
 const passport = require('passport');
 const { render } = require('../app');
+const { generateToken, verifyToken } = require('../jwt');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -13,8 +17,45 @@ router.get('/signUp', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/signUp', function(req, res, next) {
-  res.render('index');
+router.post('/signUp', function(req, res, next) {
+  res.render('profile');
+});
+
+router.get('/api/login', async function(req, res) {
+  try {
+    var currentModel;
+    switch (req.query.type) {
+      case 'caregiver':
+        currentModel = Caregiver;
+        break;
+      case 'parent':
+        currentModel = User;
+        break;
+      case 'rider':
+        currentModel = Rider;
+        break;
+    }
+
+    const currentUser = await currentModel.findOne({email: req.query.email});
+    if (currentUser) {
+      return res.json({token: generateToken(currentUser)});
+    }
+    res.json({});
+  }
+  catch (err) {
+    res.json({});
+  }
+}); 
+
+router.get('/parent/schedules', async (req, res) => {
+  try {
+    const email = req.query.email;
+    if (!email) throw new Error("Error");
+    res.json(await Schedule.find({ parentEmail: email }));
+  }
+  catch (err) {
+    res.json({});
+  }
 });
 
 // router.post('/register', async function(req, res) {
@@ -31,8 +72,10 @@ router.post('/register', async (req, res) => {            //handles form submiss
     homeAddress: address,
     phoneNumber: phoneNumber 
   });
-  await newUser.save();
-  res.redirect('/');
+  const userInfo = await newUser.save();
+  const token = generateToken(userInfo);
+  res.redirect("/profile?token="+ token);
+
 });
 
 router.get('/login', async function(req, res) {
@@ -59,10 +102,24 @@ router.post('/login', passport.authenticate('local', {         //uses Passport t
 // });
 
 router.get('/profile', (req, res) => {
-  if (!req.isAuthenticated()) {
-      return res.redirect('/login');
-  }
+  // if (!req.isAuthenticated()) {
+  //     return res.redirect('/login');
+  // }
   res.render('profile', { user: req.user }); // Pass user data to EJS template
+});
+
+// getting user data
+router.get('/get-profile-data', async function (req, res) {
+  try {
+    const request = req.query.token;
+    // console.log(req.query, typeof(request));
+    const { id, email } = verifyToken(request);
+    const user = await User.findOne({ email: email });
+    res.json(user);
+  }
+  catch (err) {
+    res.end(err);
+  }
 });
 
 router.post('/submitCaregiver', (req, res) => {
