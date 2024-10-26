@@ -117,8 +117,8 @@
 
         <div class="profile-details">
             <h2>Child's Name</h2>
-            <p><strong>Parent's Name:</strong> Parent's Name Here</p>
-            <p><strong>Parent's Work Address:</strong> Parent's Work Address Here</p>
+            <p><strong>Parent's Name:</strong><span id="parent-name"></span></p>
+            <p><strong>Parent's Home Address:</strong><span id="parent-address"></span></p>
             <p><strong>Child's Age:</strong> 5</p>
             <p><strong>Child's School Name:</strong> School Name Here</p>
             <p><strong>Child's School Address:</strong> School Address Here</p>
@@ -136,7 +136,7 @@
 
         <div class="care-schedule">
             <h3>Scheduled Care Times</h3>
-            <ul>
+            <ul id="schedule-container">
                 <li>
                     <span class="care-type">Pickup</span>
                     <span>Time: 2:00 PM</span>
@@ -179,17 +179,51 @@
                 console.log(data);
                 
                 // setting datas.
-                // document.getElementById('caregiver-name').textContent = `${data.firstName} ${data.lastName}`;
-                // document.getElementById('caregiver-qualification').textContent = data.qualification;
+                document.getElementById('parent-name').textContent = data.parentName;
+                document.getElementById('parent-address').textContent = data.homeAddress;
                 // document.getElementById('caregiver-experience').textContent = `${data.experience} years`;
                 // document.getElementById('caregiver-special-skill').textContent = data.specialSkills;
                 // document.getElementById('caregiver-phone').textContent = data.phone;
                 // document.getElementById('daycare-name').textContent = data.daycareName;
                 // document.getElementById('daycare-address').textContent = data.daycareAddress;
                 
+                fetchSchedules(data.email);
+                setInterval(() => fetchSchedules(data.email), 5000);
             }
             catch (err) {
                 console.log(err);
+            }
+        }
+        async function fetchSchedules(email) {
+            try {
+                const response = await fetch('/parent/schedules?email='+email);
+                const data = await response.json();
+
+                console.log(data);
+                // DOM handling here
+                const container = document.getElementById('schedule-container');
+                container.innerHTML = '';
+                data.forEach((schedule)=>{
+                    const li = document.createElement('li');
+                    const label = document.createElement('span');
+                    const deadline = document.createElement('span');
+                    const status = document.createElement('span');
+                    label.classList.add('care-type');
+                    status.classList.add('care-status');
+                    if (schedule.status == 'completed'){
+                        status.classList.add('status-completed');
+                    }
+                    label.textContent = schedule.label;
+                    deadline.textContent = schedule.deadline;
+                    status.textContent = schedule.status;
+                    li.appendChild(label);
+                    li.appendChild(deadline);
+                    li.appendChild(status);
+                    container.appendChild(li);
+                })
+            }
+            catch (err) {
+                console.error(err);
             }
         }
     </script>
