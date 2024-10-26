@@ -1,20 +1,30 @@
 header {
-    background-color: #af984c;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
+  background-color: #f4f4f4;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0;
+  gap: 1rem;
+  box-shadow: 0 -0.8rem 3rem #acacac;
+  position: sticky;
+  top: 0;
+  z-index: 99;
 }
 
-.welcome-section {
-    margin: 20px 0;
+.welcome-section h2 {
+  font-size: 2rem;
+}
+.welcome-section p {
+  font-size: 0.9rem;
 }
 
 nav a {
-    margin: 0 15px;
-    color: white;
-    text-decoration: none;
+  margin: 0 15px;
+  color: black;
+  text-decoration: none;
 }
 
 nav a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

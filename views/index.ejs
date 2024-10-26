@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eCareSathi</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/nav.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<header>
-        <div class="welcome-section">
-            <h2>Welcome to eCareSathi</h2>
-            <p>Your journey towards better parenting starts here!</p> 
-        </div>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
-</header>
-    
+<%- include("./layout/head.ejs") %>
 <body>
+ <%- include("./layout/navigation.ejs") %>
     <div id="img">
         <img src="/images/child1.png" alt="Welcome Image">
     </div>
@@ -29,8 +9,10 @@
             <div class="form-container sign-in">
                 <form action="/login" method="POST">
                     <h2>Sign In</h2>
+                    <div class="inputs">
                     <input type="email" placeholder="Email" required>
                     <input type="password" placeholder="Password" required>
+                    </div>
                     <button type="submit">Sign In</button>
                     <p>Don't have an account? <a href="#" id="register">Sign Up</a></p>
                 </form>
@@ -65,7 +47,6 @@
                 <p>Already have an account? <a href="#" id="login">Sign In</a></p>
             </div>
         </div>
-    </div>
     <section id="services" class="services-section">
         <h2>Our Services</h2>
         <p>Explore the variety of services we offer to make your experience seamless and enjoyable.</p>
@@ -90,6 +71,9 @@
           <% }); %>
         </div>
       </section>
+
+    <%- include("./layout/footer.ejs") %>
+
 
     <script>
         const container = document.getElementById('container');

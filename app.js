@@ -1,6 +1,6 @@
 const passport = require('passport');
 const session = require('express-session');
-require('dotenv').config()
+require('dotenv').config();
 
 
 var createError = require('http-errors');
@@ -41,11 +41,11 @@ db.once('open', function () {
 
 app.get('/users', (req, res) => {
   db.all(`SELECT * FROM users`, [], (err, rows) => {
-      if (err) {
-          res.status(500).send(err.message);
-          return;
-      }
-      res.json(rows); // Send the user data 
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+    res.json(rows); // Send the user data 
   });
 });
 
@@ -64,12 +64,12 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -84,6 +84,24 @@ app.get('/services', (req, res) => {
   const services = ['pickup', 'drop', 'homework assistance', 'hobbies boost'];
   res.json(services);
 });
+
+
+// Route to render Policy Terms and Use
+app.get('/policy-terms', (req, res) => {
+  res.render('policy-terms'); // Create a corresponding EJS file
+});
+
+// Route to render Help
+app.get('/help', (req, res) => {
+  res.render('help'); // Create a corresponding EJS file
+});
+
+// Route to render About Us
+app.get('/about-us', (req, res) => {
+  res.render('about-us'); // Create a corresponding EJS file
+});
+
+
 
 
 // app.post('/signup', (req, res) => {
