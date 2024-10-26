@@ -77,21 +77,38 @@
             align-items: center;
         }
 
-        .care-type {
+        .drop-pickup-type {
             font-weight: bold;
             color: #afa54c; 
         }
 
-        .care-status {
-            border-radius: 12px;
-            padding: 5px 10px;
-            color: white;
-            background-color: #d9534f; 
-            display: inline-block;
+        .status-select {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            margin-right: 10px;
+            width: 100px;
         }
 
-        .status-completed {
-            background-color: #5cb85c; 
+        .notes-input {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            margin-right: 10px;
+            width: 150px;
+        }
+
+        .update-button {
+            padding: 5px 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .update-button:hover {
+            background-color: #4cae4c;
         }
     </style>
 </head>
@@ -113,7 +130,7 @@
         </div>
         
         <div class="profile-picture">
-            <img src="/images/dummy-caregiver.jpg" alt="Caregiver's Photo" class="caregiver-photo">
+            <img src="/images/caregiver.png" alt="Caregiver's Photo" class="caregiver-photo">
         </div>
 
         <div class="profile-details">
@@ -191,43 +208,68 @@
                 const response = await fetch('/caregiver/schedules?email='+email);
                 const data = await response.json();
 
-                console.log(data);
+                // console.log(data);
                 // DOM handling here
                 const container = document.getElementById('schedule-container');
                 container.innerHTML = '';
                 data.forEach((schedule)=>{
                     const li = document.createElement('li');
                     const label = document.createElement('input');
+                    const child = document.createElement('span');
+                    const select = document.createElement('select');
+                    const completed = document.createElement('option');
+                    const pending = document.createElement('option');
                     const deadline = document.createElement('input');
-                    const status = document.createElement('input');
+                    const status = document.createElement('span');
                     const button = document.createElement('button');
-                    label.classList.add('care-type');
-                    status.classList.add('care-status');
-                    if (schedule.status == 'completed'){
+                    
+                    label.classList.add('notes-input');
+                    label.classList.add('drop-pickup-type');
+                    deadline.classList.add('notes-input');
+                    // status.classList.add('care-status');
+                    button.classList.add('update-button');
+                    select.classList.add('status-select');
+                    if (schedule.status === 'completed') {
                         status.classList.add('status-completed');
                     }
+
                     button.textContent = "update";
-                    label.value = schedule.label;
-                    deadline.value = schedule.deadline;
-                    status.value = schedule.status;
+                    label.value = schedule.label; // e.g., "Picking Up: Child's Name"
+                    deadline.value = schedule.deadline; // e.g., "10:00 AM"
+                    // status.textContent = schedule.status; // e.g., "Pending" or "Completed"
+                    child.textContent = "Child: Emily";
+                    completed.textContent = "completed";
+                    pending.textContent = "pending";
+                    
+                    completed.value = "completed";
+                    pending.value = "pending";
+                    
+                    select.appendChild(pending);
+                    select.appendChild(completed);
+                    
+                    select.selectedIndex = [pending.value, completed.value].indexOf(schedule.status);
+                    select.value = schedule.status;
+
                     li.appendChild(label);
+                    li.appendChild(child);
                     li.appendChild(deadline);
-                    li.appendChild(status);
+                    li.appendChild(select);
                     li.appendChild(button);
                     container.appendChild(li);
 
                     button.addEventListener('click', async ()=> {
                         try {
-                            const respose = await fetch(`/schedule/update?id=${schedule._id}&label=${label.value}&deadline=${deadline.value}&status=${status.value}`)
+                            console.log(`/schedule/update?id=${schedule._id}&label=${label.value}&deadline=${deadline.value}&status=${select.value}`);
+                            const respose = await fetch(`/schedule/update?id=${schedule._id}&label=${label.value}&deadline=${deadline.value}&status=${select.value}`)
                             const data = await response.json();
                             console.log(data);
                         }
                         catch (err) {
                             console.error(err);
                         }
-                        console.log(label.value, deadline.value, status.value);
+                        // console.log(label.value, deadline.value, select.value);
                     })
-                })
+                });
             }
             catch (err) {
                 console.error(err);

@@ -108,19 +108,21 @@
 <body>
     <div class="profile-container">
         <div class="profile-header">
-            <h1>User Profile</h1>
+            <h1 id="username">User Profile</h1>
         </div>
         
         <div class="profile-picture">
-            <img src="/images/dummy-child.jpg" alt="Child's Photo" class="child-photo">
+            <img src="/images/update.png" alt="Child's Photo" class="child-photo">
         </div>
 
         <div class="profile-details">
-            <h2>Child's Name</h2>
-            <p><strong>Parent's Name:</strong><span id="parent-name"></span></p>
+            <h2 id="parent-name"></h2>
+            <!-- <p><strong>Parent's Name:</strong><span id="parent-name"></span></p> -->
             <p><strong>Parent's Home Address:</strong><span id="parent-address"></span></p>
+            <p><strong>Parent's Phone Number:</strong><span id="parent-phone"></span></p>
+            <p><strong>Child's Name:</strong> Reeju</p>
             <p><strong>Child's Age:</strong> 5</p>
-            <p><strong>Child's School Name:</strong> School Name Here</p>
+            <p><strong>Child's School Name:</strong> DAV</p>
             <p><strong>Child's School Address:</strong> School Address Here</p>
             <p><strong>School End Timing:</strong> 3:00 PM</p>
             <p><strong>Hobbies:</strong> Painting, Soccer, Reading</p>
@@ -181,6 +183,7 @@
                 // setting datas.
                 document.getElementById('parent-name').textContent = data.parentName;
                 document.getElementById('parent-address').textContent = data.homeAddress;
+                document.getElementById('parent-phone').textContent = data.phoneNumber;
                 // document.getElementById('caregiver-experience').textContent = `${data.experience} years`;
                 // document.getElementById('caregiver-special-skill').textContent = data.specialSkills;
                 // document.getElementById('caregiver-phone').textContent = data.phone;

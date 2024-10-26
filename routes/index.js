@@ -17,8 +17,8 @@ router.get('/signUp', function(req, res, next) {
   res.render('index');
 });
 
-router.post('/signUp', function(req, res, next) {
-  res.render('profile');
+router.get('/signup-child', function(req, res, next) {
+  res.render('add-child', {email: "sth@gmail.com"});
 });
 
 router.get('/api/login', async function(req, res) {
