@@ -124,15 +124,15 @@
         </div>
         
         <div class="profile-picture">
-            <img src="/images/dummy-rider.jpg" alt="Rider's Photo" class="rider-photo">
+            <img src="/images/meal.png" alt="Rider's Photo" class="rider-photo">
         </div>
 
         <div class="profile-details">
-            <h2 id="rider-name">John Smith</h2>
-            <p><strong>Vehicle Type:</strong> <span id="vehicle-type">Sedan</span></p>
-            <p><strong>License Plate:</strong> <span id="license-plate">XYZ 1234</span></p>
-            <p><strong>Contact Number:</strong> <span id="contact-number">(123) 456-7890</span></p>
-            <p><strong>Experience:</strong> <span id="experience">5 years</span></p>
+            <h2 id="rider-name"></h2>
+            <p><strong>Vehicle Type:</strong> <span id="vehicle-type"></span></p>
+            <p><strong>License Plate:</strong> <span id="license-plate"></span></p>
+            <p><strong>Contact Number:</strong> <span id="contact-number"></span></p>
+            <p><strong>Experience:</strong> <span id="experience">2 yrs</span></p>
         </div>
 
         <div class="availability">
@@ -143,9 +143,9 @@
 
         <div class="route-details">
             <h3>Route Details</h3>
-            <p><strong>Primary Daycare:</strong> <span id="daycare-name">Little Stars Daycare</span></p>
-            <p><strong>Drop-off Location:</strong> <span id="dropoff-location">123 Main St, Springfield</span></p>
-            <p><strong>Return Home Location:</strong> <span id="return-location">456 Elm St, Springfield</span></p>
+            <p><strong>Primary Daycare:</strong> <span id="daycare-name">Care</span></p>
+            <p><strong>Drop-off Location:</strong> <span id="dropoff-location">Ktm</span></p>
+            <p><strong>Return Home Location:</strong> <span id="return-location">Basantapur</span></p>
         </div>
 
         <div class="pickup-drop-status">
@@ -212,13 +212,17 @@ async function getRiderData(token) {
         const email = data.email; // Adjust according to the actual data structure
 
         // Set rider data in the DOM
-        document.getElementById('rider-name').textContent = data.fullName;
+        console.log(data);
+        document.getElementById('rider-name').textContent = data.name;
         document.getElementById('vehicle-type').textContent = data.vehicleType;
         document.getElementById('license-plate').textContent = data.licensePlate;
-        document.getElementById('contact-number').textContent = data.phone;
+        document.getElementById('contact-number').textContent = data.contactNumber;
+        // document.getElementById('experience').textContent = `${data.experience} years`;
+        document.getElementById('available-days').textContent = data.availability.days.join(' ');
+        document.getElementById('available-hours').textContent = data.availability.hours;
 
         fetchRiderSchedules(email);
-        setInterval(() => fetchRiderSchedules(email), 5000); // Refresh schedules every 5 seconds
+        // setInterval(() => fetchRiderSchedules(email), 5000); // Refresh schedules every 5 seconds
     } catch (err) {
         console.error('Error fetching rider data:', err);
     }
@@ -230,36 +234,78 @@ async function fetchRiderSchedules(email) {
         const response = await fetch('/rider/schedules?email=' + email);
         
         // Log the response for debugging
-        const text = await response.text(); // Read response as text
-        console.log(text); // Log the raw response
-
-        const data = JSON.parse(text); // Try parsing as JSON
-        console.log(data);
-        
-        const container = document.getElementById('schedule-container');
+        const data = await response.json(); // Read response as text
+        console.log(data); // Log the raw response
+        // <li>
+        //             <span class="drop-pickup-type">Picking Up</span>
+        //             <span>Child: Emily</span>
+        //             <select class="status-select">
+        //                 <option value="Completed">Completed</option>
+        //                 <option value="Pending">Pending</option>
+        //             </select>
+        //             <input type="text" class="notes-input" placeholder="Notes">
+        //             <button class="update-button" onclick="updateStatus('Emily', this)">Update</button>
+        // </li>
+        const container = document.getElementById('status-container');
         container.innerHTML = ''; // Clear previous schedules
-
+        console.log(container);
         data.forEach((schedule) => {
             const li = document.createElement('li');
-            const label = document.createElement('span');
-            const deadline = document.createElement('span');
+            const label = document.createElement('input');
+            const child = document.createElement('span');
+            const select = document.createElement('select');
+            const completed = document.createElement('option');
+            const pending = document.createElement('option');
+            const deadline = document.createElement('input');
             const status = document.createElement('span');
-
-            label.classList.add('care-type');
-            status.classList.add('care-status');
-
+            const button = document.createElement('button');
+            
+            label.classList.add('notes-input');
+            label.classList.add('drop-pickup-type');
+            deadline.classList.add('notes-input');
+            // status.classList.add('care-status');
+            button.classList.add('update-button');
+            select.classList.add('status-select');
             if (schedule.status === 'completed') {
                 status.classList.add('status-completed');
             }
 
-            label.textContent = schedule.label; // e.g., "Picking Up: Child's Name"
-            deadline.textContent = schedule.deadline; // e.g., "10:00 AM"
-            status.textContent = schedule.status; // e.g., "Pending" or "Completed"
+            button.textContent = "update";
+            label.value = schedule.label; // e.g., "Picking Up: Child's Name"
+            deadline.value = schedule.deadline; // e.g., "10:00 AM"
+            // status.textContent = schedule.status; // e.g., "Pending" or "Completed"
+            child.textContent = "Child: Reeju";
+            completed.textContent = "completed";
+            pending.textContent = "pending";
+            
+            completed.value = "completed";
+            pending.value = "pending";
+            
+            select.appendChild(pending);
+            select.appendChild(completed);
+            
+            select.selectedIndex = [pending.value, completed.value].indexOf(schedule.status);
+            select.value = schedule.status;
 
             li.appendChild(label);
+            li.appendChild(child);
             li.appendChild(deadline);
-            li.appendChild(status);
+            li.appendChild(select);
+            li.appendChild(button);
             container.appendChild(li);
+
+            button.addEventListener('click', async ()=> {
+                try {
+                    console.log(`/schedule/update?id=${schedule._id}&label=${label.value}&deadline=${deadline.value}&status=${select.value}`);
+                    const respose = await fetch(`/schedule/update?id=${schedule._id}&label=${label.value}&deadline=${deadline.value}&status=${select.value}`)
+                    const data = await response.json();
+                    console.log(data);
+                }
+                catch (err) {
+                    console.error(err);
+                }
+                // console.log(label.value, deadline.value, select.value);
+            })
         });
     } catch (err) {
         console.error('Error fetching rider schedules:', err);

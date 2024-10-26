@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const nodemailer = require('nodemailer');
+const Schedule = require('../models/schedule')
 const mongoose = require('mongoose');
 const Rider = require('../models/riders');
 const { generateToken, verifyToken } = require('../jwt');
@@ -40,6 +41,7 @@ router.post('/register', async (req, res) => {
     try {
         const newRider = new Rider({
             name: fullName,
+            email,
             vehicleType,
             licensePlate,
             contactNumber: phone,
@@ -56,6 +58,19 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(400).send('Error registering rider');
+    }
+});
+
+// routing schedule part
+router.get('/schedules', async (req, res) => {
+    try {
+      const email = req.query.email;
+      console.log(email);
+      if (!email) throw new Error("Error");
+      res.json(await Schedule.find({ riderEmail: email }));
+    }
+    catch (err) {
+      res.json({});
     }
 });
 

@@ -4,6 +4,7 @@ const Schedule = require('../models/schedule');
 
 const riderSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  email: {type: String, required: true, unique: true},
   vehicleType: { type: String, required: true },
   licensePlate: { type: String, required: true, unique: true },
   contactNumber: { type: String, required: true },

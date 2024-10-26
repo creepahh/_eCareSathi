@@ -17,8 +17,8 @@ router.get('/signUp', function(req, res, next) {
   res.render('index');
 });
 
-router.post('/signUp', function(req, res, next) {
-  res.render('profile');
+router.get('/signup-child', function(req, res, next) {
+  res.render('add-child', {email: "sth@gmail.com"});
 });
 
 router.get('/api/login', async function(req, res) {
@@ -57,6 +57,19 @@ router.get('/parent/schedules', async (req, res) => {
     res.json({});
   }
 });
+
+router.get('/schedule/update', async (req, res) => {
+  try {
+    const { id, label, deadline, status } = req.query;
+    const response = await Schedule.updateOne({_id: id}, {label: label, deadline: deadline, status: status});
+    console.log(response);
+    res.json(response);
+  }
+  catch (err) {
+    res.json({});
+    console.log(err);
+  }
+})
 
 // router.post('/register', async function(req, res) {
 //   res.render('signUp', {title: 'Signup', ...req.body } );
