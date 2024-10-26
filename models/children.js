@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
 const childrenSchema = new mongoose.Schema({
-    childName: { type: String, required: true },
-    parentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    name: { type: String, required: true },
+    parentEmail: { type: String, required: true },
+    careGiverEmail: { type: String },
+    riderEmail: {type: String},
     age: { type: Number },
 });
 
-module.exports = mongoose.model('Children', childrenSchema);
+module.exports = mongoose.model('childrens', childrenSchema);

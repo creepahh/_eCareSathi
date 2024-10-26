@@ -130,6 +130,10 @@
 
         <div class="notifications">
             <h3>Notifications</h3>
+            <div id="children-container">
+
+            </div>
+            <a href="/select">Select Caregiver and Rider</a>
             <ul id="notification-list">
                 <!-- Notifications will be dynamically added here -->
             </ul>
@@ -190,16 +194,17 @@
                 // document.getElementById('daycare-name').textContent = data.daycareName;
                 // document.getElementById('daycare-address').textContent = data.daycareAddress;
                 
-                fetchSchedules(data.email);
-                setInterval(() => fetchSchedules(data.email), 5000);
+                getChildren(data.email);
+                // fetchSchedules(data.email);
+                // setInterval(() => fetchSchedules(data.email), 5000);
             }
             catch (err) {
                 console.log(err);
             }
         }
-        async function fetchSchedules(email) {
+        async function fetchSchedules(email, childName) {
             try {
-                const response = await fetch('/parent/schedules?email='+email);
+                const response = await fetch(`/parent/schedules?email=${email}&childName=${childName}`);
                 const data = await response.json();
 
                 console.log(data);
@@ -229,6 +234,40 @@
                 console.error(err);
             }
         }
+
+        async function getChildren(email) {
+            try {
+                const response = await fetch(`/getChildList?token=${token}`);
+                const data = await response.json();
+                
+                const container = document.getElementById('children-container');
+                const select = document.createElement('select');
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Select child";
+                select.appendChild(defaultOption);
+
+                data.forEach((child) => {
+                    const option = document.createElement('option');
+                    option.value = child.name;
+                    option.textContent = child.name;
+                    select.appendChild(option);
+                });
+                container.appendChild(select);
+
+                select.addEventListener('input', () => {
+                    childName = select.value;
+                    if(select.value)
+                        fetchSchedules(email, select.value);
+                })
+                
+            }
+            catch (err) {
+                console.error(err);
+            }
+
+        }
+        
     </script>
 </body>
 </html>

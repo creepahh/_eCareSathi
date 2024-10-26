@@ -111,6 +111,9 @@
             else container.classList.remove("active");
         }
 
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get('parent-signup')) toggleActive(true);
+        
         registerBtn.addEventListener('click', () => toggleActive(true));
         signUp.addEventListener('click', () => toggleActive(true));
         loginBtn.addEventListener('click', () => toggleActive(false));
