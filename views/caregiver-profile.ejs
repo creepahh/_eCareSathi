@@ -128,8 +128,8 @@
 
         <div class="care-schedule">
             <h3>Care Schedule</h3>
-            <ul>
-                <li>
+            <ul id="schedule-container">
+                <!-- <li>
                     <span class="care-type">Morning Shift</span>
                     <span>Time: 8:00 AM - 12:00 PM</span>
                     <span class="care-status status-completed">Completed</span>
@@ -143,7 +143,7 @@
                     <span class="care-type">Special Event</span>
                     <span>Time: 3:00 PM - 4:00 PM</span>
                     <span class="care-status">Pending</span>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
@@ -179,9 +179,45 @@
                 document.getElementById('daycare-name').textContent = data.daycareName;
                 document.getElementById('daycare-address').textContent = data.daycareAddress;
                 
+                fetchSchedules(data.email);
+                setInterval(() => fetchSchedules(data.email), 5000);
             }
             catch (err) {
                 console.log(err);
+            }
+        }
+        async function fetchSchedules(email) {
+            try {
+                const response = await fetch('/caregiver/schedules?email='+email);
+                const data = await response.json();
+
+                console.log(data);
+                // DOM handling here
+                const container = document.getElementById('schedule-container');
+                container.innerHTML = '';
+                data.forEach((schedule)=>{
+                    const li = document.createElement('li');
+                    const label = document.createElement('span');
+                    const deadline = document.createElement('span');
+                    const status = document.createElement('span');
+                    label.classList.add('care-type');
+                    status.classList.add('care-status');
+                    if (schedule.status == 'completed'){
+                        status.classList.add('status-completed');
+
+                    }
+                    
+                    label.textContent = schedule.label;
+                    deadline.textContent = schedule.deadline;
+                    status.textContent = schedule.status;
+                    li.appendChild(label);
+                    li.appendChild(deadline);
+                    li.appendChild(status);
+                    container.appendChild(li);
+                })
+            }
+            catch (err) {
+                console.error(err);
             }
         }
     </script>

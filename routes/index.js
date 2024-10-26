@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../models/users');
 const Caregiver = require('../models/caregiver');
 const Rider = require('../models/riders');
+const Schedule = require('../models/schedule');
 const passport = require('passport');
 const { render } = require('../app');
 const { generateToken, verifyToken } = require('../jwt');
@@ -45,6 +46,17 @@ router.get('/api/login', async function(req, res) {
     res.json({});
   }
 }); 
+
+router.get('/parent/schedules', async (req, res) => {
+  try {
+    const email = req.query.email;
+    if (!email) throw new Error("Error");
+    res.json(await Schedule.find({ parentEmail: email }));
+  }
+  catch (err) {
+    res.json({});
+  }
+});
 
 // router.post('/register', async function(req, res) {
 //   res.render('signUp', {title: 'Signup', ...req.body } );

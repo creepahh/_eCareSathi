@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Caregiver = require('../models/caregiver'); // Import the Caregiver model
+const Schedule = require('../models/schedule');
 const { generateToken, verifyToken } = require('../jwt');
 
 router.get('/', function (req, res) {
@@ -22,6 +23,18 @@ router.get('/get-profile-data', async function (req, res) {
   }
   catch (err) {
     res.end(err);
+  }
+});
+
+// for scheduling
+router.get('/schedules', async (req, res) => {
+  try {
+    const email = req.query.email;
+    if (!email) throw new Error("Error");
+    res.json(await Schedule.find({ careGiverEmail: email }));
+  }
+  catch (err) {
+    res.json({});
   }
 });
 
