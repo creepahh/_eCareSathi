@@ -58,6 +58,19 @@ router.get('/parent/schedules', async (req, res) => {
   }
 });
 
+router.get('/schedule/update', async (req, res) => {
+  try {
+    const { id, label, deadline, status } = req.query;
+    const response = await Schedule.updateOne({_id: id}, {label: label, deadline: deadline, status: status});
+    console.log(response);
+    res.json(response);
+  }
+  catch (err) {
+    res.json({});
+    console.log(err);
+  }
+})
+
 // router.post('/register', async function(req, res) {
 //   res.render('signUp', {title: 'Signup', ...req.body } );
 // });

@@ -180,7 +180,7 @@
                 document.getElementById('daycare-address').textContent = data.daycareAddress;
                 
                 fetchSchedules(data.email);
-                setInterval(() => fetchSchedules(data.email), 5000);
+                // setInterval(() => fetchSchedules(data.email), 5000);
             }
             catch (err) {
                 console.log(err);
@@ -197,23 +197,36 @@
                 container.innerHTML = '';
                 data.forEach((schedule)=>{
                     const li = document.createElement('li');
-                    const label = document.createElement('span');
-                    const deadline = document.createElement('span');
-                    const status = document.createElement('span');
+                    const label = document.createElement('input');
+                    const deadline = document.createElement('input');
+                    const status = document.createElement('input');
+                    const button = document.createElement('button');
                     label.classList.add('care-type');
                     status.classList.add('care-status');
                     if (schedule.status == 'completed'){
                         status.classList.add('status-completed');
-
                     }
-                    
-                    label.textContent = schedule.label;
-                    deadline.textContent = schedule.deadline;
-                    status.textContent = schedule.status;
+                    button.textContent = "update";
+                    label.value = schedule.label;
+                    deadline.value = schedule.deadline;
+                    status.value = schedule.status;
                     li.appendChild(label);
                     li.appendChild(deadline);
                     li.appendChild(status);
+                    li.appendChild(button);
                     container.appendChild(li);
+
+                    button.addEventListener('click', async ()=> {
+                        try {
+                            const respose = await fetch(`/schedule/update?id=${schedule._id}&label=${label.value}&deadline=${deadline.value}&status=${status.value}`)
+                            const data = await response.json();
+                            console.log(data);
+                        }
+                        catch (err) {
+                            console.error(err);
+                        }
+                        console.log(label.value, deadline.value, status.value);
+                    })
                 })
             }
             catch (err) {
