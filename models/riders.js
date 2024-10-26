@@ -14,8 +14,6 @@ const riderSchema = new mongoose.Schema({
   profilePicture: { type: String } // URL to rider's photo
 });
 
-// If you want to hash a password, you can add a password field
-// riderSchema.add({ password: { type: String, required: true } });
 
 riderSchema.pre('save', async function (next) {
   try {
