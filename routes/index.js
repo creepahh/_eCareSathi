@@ -52,14 +52,37 @@ router.get('/api/login', async function(req, res) {
 // parent gets schedule??
 router.get('/parent/schedules', async (req, res) => {
   try {
-    const email = req.query.email;
+    const { token, childName } = req.query;
+    const { email } = verifyToken(token);
     if (!email) throw new Error("Error");
-    res.json(await Schedule.find({ parentEmail: email }));
+    const response = await Schedule.find({ parentEmail: email, childName: childName  })
+    res.json(response);
   }
   catch (err) {
     res.json({});
   }
 });
+
+// addChild
+router.get('/child/add', async (req, res) => {
+  try {
+    const { token, childName } = req.query;
+    const {email} = verifyToken(token);
+    if (!childName || !email) throw new Error("Error");
+    const response = new Child({
+      name: childName,
+      parentEmail: email,
+      age: 10,
+      riderEmail: "",
+      careGiverEmail: ""
+    });
+    response.save();
+    res.json(response);
+  }
+  catch (err) {
+    console.error(err);
+  }
+})
 
 // schedule updated handling
 router.get('/schedule/update', async (req, res) => {

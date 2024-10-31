@@ -24,8 +24,9 @@ a {
 }
 
 body{
-  background-color: #c9d6ff;
-  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  /* background-color: #c9d6ff;
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+  background-color: #ffe4b5;
   /* display: flex; */
   align-items: center;
   justify-content: center;
@@ -211,7 +212,7 @@ body{
   background-color: #a8872d;
   z-index: 10;
   height: 100%;
-  background: linear-gradient(to right, #5c6bc0, #a8872d);
+  background: linear-gradient(to right, #dfc47a, #a8872d);
   color: #fff;
   position: absolute;
   right: 0;

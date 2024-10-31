@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #ffe4b5;
         }
 
         .profile-container {
@@ -76,6 +76,14 @@
             align-items: center;
         }
 
+        li span {
+            flex: 2;
+        }
+        li span:last-child {
+            flex: 0.7;
+            text-align: center;
+        }
+
         .care-type {
             font-weight: bold;
             color: #afa54c; 
@@ -120,20 +128,20 @@
             <!-- <p><strong>Parent's Name:</strong><span id="parent-name"></span></p> -->
             <p><strong>Parent's Home Address:</strong><span id="parent-address"></span></p>
             <p><strong>Parent's Phone Number:</strong><span id="parent-phone"></span></p>
-            <p><strong>Child's Name:</strong> Reeju</p>
-            <p><strong>Child's Age:</strong> 5</p>
-            <p><strong>Child's School Name:</strong> DAV</p>
-            <p><strong>Child's School Address:</strong> Dallu</p>
-            <p><strong>School End Timing:</strong> 3:00 PM</p>
-            <p><strong>Hobbies:</strong> Painting, Soccer, Reading</p>
         </div>
 
         <div class="notifications">
-            <h3>Notifications</h3>
+            <h3>Updates</h3>
             <div id="children-container">
-
+                <div id="add-children-form">
+                    <input type="text" placeholder="Child Name" id="add-children">
+                    <button id="add-children-button" onclick="addChild()">Add Child</button>
+                </div>
+                
             </div>
             <a href="/select">Select Caregiver and Rider</a>
+            <div id="child-details"></div>
+
             <ul id="notification-list">
                 <!-- Notifications will be dynamically added here -->
             </ul>
@@ -143,25 +151,11 @@
         <div class="care-schedule">
             <h3>Scheduled Care Times</h3>
             <ul id="schedule-container">
-                <li>
-                    <span class="care-type">Pickup</span>
-                    <span>Time: 2:00 PM</span>
-                    <span class="care-status">Pending</span>
-                </li>
-                <li>
-                    <span class="care-type">Homework Assistance</span>
-                    <span>Time: 4:00 PM</span>
-                    <span class="care-status status-completed">Completed</span>
-                </li>
-                <li>
-                    <span class="care-type">Drop off</span>
-                    <span>Time: 5:00 PM</span>
-                    <span class="care-status">Pending</span>
-                </li>
             </ul>
         </div>
     </div>
     <script>
+        var loopList;
         const searchParams = new URLSearchParams(window.location.search);
         var token = searchParams.get('token');
         if(searchParams.has('token')) {
@@ -195,16 +189,18 @@
                 // document.getElementById('daycare-address').textContent = data.daycareAddress;
                 
                 getChildren(data.email);
+                // if (loopList) clearInterval(loopList);
                 // fetchSchedules(data.email);
-                // setInterval(() => fetchSchedules(data.email), 5000);
+                // loopList = setInterval(() => fetchSchedules(data.email), 5000);
             }
             catch (err) {
                 console.log(err);
             }
         }
-        async function fetchSchedules(email, childName) {
+        async function fetchSchedules(childName) {
             try {
-                const response = await fetch(`/parent/schedules?email=${email}&childName=${childName}`);
+                console.log(token, childName);
+                const response = await fetch(`/parent/schedules?token=${token}&childName=${childName}`);
                 const data = await response.json();
 
                 console.log(data);
@@ -218,7 +214,7 @@
                     const status = document.createElement('span');
                     label.classList.add('care-type');
                     status.classList.add('care-status');
-                    if (schedule.status == 'completed'){
+                    if (schedule.status == 'Completed'){
                         status.classList.add('status-completed');
                     }
                     label.textContent = schedule.label;
@@ -257,8 +253,19 @@
 
                 select.addEventListener('input', () => {
                     childName = select.value;
-                    if(select.value)
-                        fetchSchedules(email, select.value);
+                    document.getElementById('child-details').innerHTML = `
+                        <p><strong>Child's Name:</strong> ${select.value}</span></p>
+                        <p><strong>Child's Age:</strong> 5</p>
+                        <p><strong>Child's School Name:</strong> DAV</p>
+                        <p><strong>Child's School Address:</strong> Dallu</p>
+                        <p><strong>School End Timing:</strong> 3:00 PM</p>
+                        <p><strong>Hobbies:</strong> Painting, Soccer, Reading</p>
+                    `
+                    if(select.value) {
+                        fetchSchedules(select.value);
+                        if (loopList) clearInterval(loopList);
+                        loopList = setInterval(() => fetchSchedules(select.value), 5000);
+                    }
                 })
                 
             }
@@ -267,7 +274,18 @@
             }
 
         }
-        
+        async function addChild() {
+            try {
+                const childName = document.getElementById('add-children');
+                const response = await fetch(`/child/add?token=${token}&childName=${childName.value}`);
+                const data = await response.json();
+                console.log(data);
+                window.location.reload();
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
     </script>
 </body>
 </html>

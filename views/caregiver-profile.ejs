@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #ffe4b5;
         }
 
         .profile-container {
@@ -233,16 +233,16 @@
                         status.classList.add('status-completed');
                     }
 
-                    button.textContent = "update";
+                    button.textContent = "Update";
                     label.value = schedule.label; // e.g., "Picking Up: Child's Name"
                     deadline.value = schedule.deadline; // e.g., "10:00 AM"
                     // status.textContent = schedule.status; // e.g., "Pending" or "Completed"
                     child.textContent = "Child: " + schedule.childName;
-                    completed.textContent = "completed";
-                    pending.textContent = "pending";
+                    completed.textContent = "Completed";
+                    pending.textContent = "Pending";
                     
-                    completed.value = "completed";
-                    pending.value = "pending";
+                    completed.value = "Completed";
+                    pending.value = "Pending";
                     
                     select.appendChild(pending);
                     select.appendChild(completed);

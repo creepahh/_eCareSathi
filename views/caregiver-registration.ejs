@@ -26,6 +26,9 @@
             /* overflow-y: auto;  */
             /* Enable scrolling */
         }
+        .container {
+            display: flex;
+        }
         
         .form-container {
             display: flex;
@@ -35,8 +38,7 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 70%; /* Adjusted width */
-            max-width: 400px; /* Maximum width */
+            width: 600px; /* Adjusted width */
         }
         
         h2 {
@@ -78,12 +80,12 @@
         }
         .image-container {
             flex: 1; /* Take up remaining space */
-            /* display: flex;
-            justify-content: center;
-            align-items: center; */
-            object-fit: cover; /* Cover the area while maintaining aspect ratio */
+        }
+        .image-container img {
+            max-width: 100%; /* Responsive image */
             height: auto; /* Maintain aspect ratio */
-            max-width: 100%; /* Ensure it doesn't exceed its container */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         /* Responsive image */
         /* Maintain aspect ratio */
@@ -107,7 +109,6 @@
 </header>
 <body>
     <div class="container">
-
         <div class="form-container">
             <form id="caregiver-registration-form" action="/caregiver/register" method="POST">
                 <h2>Caregiver Registration</h2>
@@ -153,9 +154,9 @@
                 <input type="submit" value="Register as Caregiver">
             </form>
         </div>
-    </div>
-    <div class="image-container">
-        <img src="/images/child-hobbies.png" alt="Caregiver Image">
+        <div class="image-container">
+            <img src="/images/child-hobbies.png" alt="Caregiver Image">
+        </div>
     </div>
 </body>
 </html>
