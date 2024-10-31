@@ -4,6 +4,7 @@ const scheduleSchema = new mongoose.Schema({
     parentEmail: { type: String, required: true },
     careGiverEmail: { type: String },
     riderEmail: {type: String },
+    childName: {type: String},
     status: { type: String, required: true },
     deadline: { type: String, required: true },
     label: { type: String, required: true },

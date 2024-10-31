@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #ffe4b5; color: #333;">
-    <header style="background-color: #af984c; color: white; padding: 10px 0; text-align: center;">
+    <header style="background-color: #d9b16d; color: white; padding: 10px 0; text-align: center;">
         <div class="welcome-section">
             <h2>Welcome to eCareSathi</h2>
             <p>Your journey towards better parenting starts here!</p>
@@ -28,7 +28,7 @@
                 <p style="font-size: 20px; margin: 10px 0; color: #555;">Please select your role:</p>
                 <button onclick="redirectToRole('caregiver')" style="background-color: #c9b1a9; color: white; border: none; padding: 15px 25px; margin: 10px; border-radius: 30px; font-size: 18px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">I am a Caregiver</button>
                 <button onclick="redirectToRole('rider')" style="background-color: #c9b1a9; color: white; border: none; padding: 15px 25px; margin: 10px; border-radius: 30px; font-size: 18px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">I am a Rider</button>
-                <button onclick="redirectToRole('parent')" style="background-color: #c9b1a9; color: white; border: none; padding: 15px 25px; margin: 10px; border-radius: 30px; font-size: 18px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">I am a Parent/User</button>
+                <button onclick="redirectToRole('parent')" style="background-color: #c9b1a9; color: white; border: none; padding: 15px 25px; margin: 10px; border-radius: 30px; font-size: 18px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;">I am a Parent</button>
             </div>
             <p>Already a member? <a href="/signup">Sign In</a></p>
         </div>
@@ -98,7 +98,7 @@
                     window.location.href = '/rider';
                     break;
                 case 'parent':
-                    window.location.href = '/signUp';
+                    window.location.href = '/signUp?parent-signup=true';
                     break;
                 default:
                     console.error('Unknown role selected');

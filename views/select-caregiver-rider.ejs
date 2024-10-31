@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/nav.css">
+    <title>Select</title>
+    <style>
+        /* Basic styling for card layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        #caregiver-list, #rider-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        
+        }
+        .card {
+            width: 18rem;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        .card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        .card h4 {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        button {
+            background-color: #c9b1a9; 
+            color: white; border: none; 
+            padding: 10px 20px; 
+            border-radius: 5px; cursor: pointer; 
+            width: 20%;
+        }
+
+        .current {
+            background-color: #d9b16d;
+        }
+
+        .selected {
+            background-color: rgb(58, 97, 163);
+        }
+    </style>
+</head>
+<header>
+    <div class="welcome-section">
+        <h2>Welcome to eCareSathi</h2>
+        <p>Your journey towards better parenting starts here!</p> 
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+<body>
+    <div id="container">
+        <div id="children-container">
+
+        </div>
+        <div class="section">
+            <div>
+                <h2>Select Caregiver</h2>
+                <button onclick="saveChanges()">Save</button>
+            </div>
+            <div id="caregiver-list">
+                
+            </div>
+
+            <h2>Select Rider</h2>
+            <div id="rider-list">
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var selectedCaregiver = NaN;
+        var selectedRider = NaN;
+        const token = window.localStorage.getItem('token');
+        var childName;
+        async function fetchData() {
+            try {
+                const response = await fetch(`/getCaregiverRider?token=${token}&childName=${childName}`);
+                // console.log(response);
+                const data = await response.json();
+                console.log(data);
+                renderCaregiver(data.careGiver, data.selectedCareGiver);
+                renderRider(data.riders, data.selectedRider);
+
+            }
+            catch (err) {
+                console.error(err);
+            }
+        }
+        // <div class="card" style="width: 18rem;">
+        //                 <img src="/images/child.png" alt="" width="200px">
+        //                 <h4 id="caregiver-name">Caregiver Name</h2>
+        //             </div>
+        function renderCaregiver(caregiverList, currentCaregiver){
+            const container = document.getElementById('caregiver-list');
+            container.innerHTML = "";
+
+            caregiverList.forEach((caregiver) => {
+                const div = document.createElement('div');
+                const img = document.createElement('img');
+                const h4 = document.createElement('h4');
+
+                img.src = "/images/child.png";
+                h4.textContent = caregiver.firstName +" "+ caregiver.lastName;
+                
+                div.classList.add('card');
+                div.appendChild(img);
+                div.appendChild(h4);
+
+                container.appendChild(div);
+
+                if(caregiver.email == currentCaregiver ){
+                    div.classList.add("current");
+                }
+
+                div.addEventListener('click', () => {
+                    if(selectedCaregiver) {
+                        selectedCaregiver.dom.classList.remove('selected');
+                    }
+                    
+                    selectedCaregiver = {
+                        dom: div,
+                        email: caregiver.email,
+                        firstName: caregiver.firstName
+                    }
+                    div.classList.add('selected');
+                });
+            });
+        }
+        
+        function renderRider(riderList, currentRider){
+            
+            const container = document.getElementById('rider-list');
+            container.innerHTML = "";
+            riderList.forEach((rider) => {
+                const div = document.createElement('div');
+                const img = document.createElement('img');
+                const h4 = document.createElement('h4');
+
+                img.src = "/images/child.png";
+                h4.textContent = rider.name;
+                
+                div.classList.add('card');
+                div.appendChild(img);
+                div.appendChild(h4);
+
+                container.appendChild(div);
+
+                if(rider.email == currentRider ){
+                    div.classList.add("current");
+                }
+
+                div.addEventListener('click', () => {
+                    if(selectedRider) {
+                        selectedRider.dom.classList.remove('selected');
+                    }
+                    selectedRider = {
+                        dom: div,
+                        email: rider.email,
+                        name: rider.name
+                    }
+                    div.classList.add('selected');
+                });
+            });
+            
+        }
+
+        async function getChildren() {
+            try {
+                
+                const response = await fetch(`/getChildList?token=${token}`);
+                const data = await response.json();
+                
+                const container = document.getElementById('children-container');
+                const select = document.createElement('select');
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Select child";
+                select.appendChild(defaultOption);
+
+                data.forEach((child) => {
+                    const option = document.createElement('option');
+                    option.value = child.name;
+                    option.textContent = child.name;
+                    select.appendChild(option);
+                });
+                container.appendChild(select);
+
+                select.addEventListener('input', () => {
+                    childName = select.value;
+                    if(select.value)
+                        fetchData();
+                })
+                
+            }
+            catch (err) {
+                console.error(err);
+            }
+
+        }
+        getChildren();
+        // fetchData();
+
+        async function saveChanges(){
+            try{
+                console.log(selectedCaregiver,selectedRider);
+                if(!selectedCaregiver || !selectedRider) {
+                    throw new Error("Not selected");
+                }
+                const response = await fetch(`/setCaregiverRider?token=${token}&childName=${childName}&careGiverEmail=${selectedCaregiver.email}&riderEmail=${selectedRider.email}`);
+                const data = await response.json();
+                if(data.changes){
+                    window.location.reload();
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+</html>

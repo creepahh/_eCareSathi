@@ -72,11 +72,11 @@
             </div>
         </div>
     </div>
-    <section id="services" class="services-section">
+    <!-- <section id="services" class="services-section">
         <h2>Our Services</h2>
         <p>Explore the variety of services we offer to make your experience seamless and enjoyable.</p>
         <div class="service-cards">
-          <% const services = [
+          <%# const services = [
             { image: "tutor.png", title: "Tutoring" },
             { image: "child-painting.png", title: "Hobbies" },
             { image: "update.png", title: "Monitoring" },
@@ -85,17 +85,17 @@
             { image: "safety.png", title: "Safety" }
           ]; %>
     
-          <% services.forEach(service => { %>
+          <%# services.forEach(service => { %>
             <div class="card">
               <div class="circle-image">
-                <img src="/images/<%= service.image %>" alt="<%= service.title %>">
+                <img src="/images/<%#= service.image %>" alt="<%#= service.title %>">
               </div>
-              <h3><%= service.title %></h3>
-              <p>Discover more about our <%= service.title %>.</p>
+              <h3><%#= service.title %></h3>
+              <p>Discover more about our <%#= service.title %>.</p>
             </div>
-          <% }); %>
+          <%# }); %>
         </div>
-      </section>
+      </section> -->
     
 
     <script>
@@ -111,6 +111,9 @@
             else container.classList.remove("active");
         }
 
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get('parent-signup')) toggleActive(true);
+        
         registerBtn.addEventListener('click', () => toggleActive(true));
         signUp.addEventListener('click', () => toggleActive(true));
         loginBtn.addEventListener('click', () => toggleActive(false));

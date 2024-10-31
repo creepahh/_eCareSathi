@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../models/users');
 const Caregiver = require('../models/caregiver');
 const Rider = require('../models/riders');
+const Child = require('../models/children');
 const Schedule = require('../models/schedule');
 const passport = require('passport');
 const { render } = require('../app');
@@ -21,6 +22,7 @@ router.get('/signup-child', function(req, res, next) {
   res.render('add-child', {email: "sth@gmail.com"});
 });
 
+// toggle handling in sign in
 router.get('/api/login', async function(req, res) {
   try {
     var currentModel;
@@ -47,17 +49,42 @@ router.get('/api/login', async function(req, res) {
   }
 }); 
 
+// parent gets schedule??
 router.get('/parent/schedules', async (req, res) => {
   try {
-    const email = req.query.email;
+    const { token, childName } = req.query;
+    const { email } = verifyToken(token);
     if (!email) throw new Error("Error");
-    res.json(await Schedule.find({ parentEmail: email }));
+    const response = await Schedule.find({ parentEmail: email, childName: childName  })
+    res.json(response);
   }
   catch (err) {
     res.json({});
   }
 });
 
+// addChild
+router.get('/child/add', async (req, res) => {
+  try {
+    const { token, childName } = req.query;
+    const {email} = verifyToken(token);
+    if (!childName || !email) throw new Error("Error");
+    const response = new Child({
+      name: childName,
+      parentEmail: email,
+      age: 10,
+      riderEmail: "",
+      careGiverEmail: ""
+    });
+    response.save();
+    res.json(response);
+  }
+  catch (err) {
+    console.error(err);
+  }
+})
+
+// schedule updated handling
 router.get('/schedule/update', async (req, res) => {
   try {
     const { id, label, deadline, status } = req.query;
@@ -132,6 +159,70 @@ router.get('/get-profile-data', async function (req, res) {
   }
   catch (err) {
     res.end(err);
+  }
+});
+
+router.get('/select', (req, res) => {
+  res.render('select-caregiver-rider');
+})
+
+router.get('/getCaregiverRider', async (req, res) => {
+  try {
+    const { token, childName } = req.query;
+    const { email } = verifyToken(token);
+    const user = await User.findOne({ email: email });
+    const careGivers = await Caregiver.find({});
+    const riders = await Rider.find({});
+    const child = await Child.findOne({
+      parentEmail: user.email,
+      name: childName
+    });
+    // const newChild = new Child ({
+    //   parentEmail: user.email,
+    //   name: childName
+    // });
+    // newChild.save();
+    // console.log(user, child, childName);
+    res.json({
+      careGiver: careGivers,
+      riders: riders,
+      selectedCareGiver: child?.careGiverEmail || NaN,
+      selectedRider: child?.riderEmail || NaN
+    })
+  }
+  catch (err) {
+    res.json({});
+  }
+});
+
+// select caregiver and rider
+router.get('/setCaregiverRider', async (req, res) => {
+  try {
+    const { token, childName, careGiverEmail, riderEmail } = req.query;
+    const { email } = verifyToken(token);
+    const updatedChild = await Child.updateOne({ name: childName, parentEmail: email }, { careGiverEmail: careGiverEmail, riderEmail: riderEmail })
+    res.json({changes: true});
+  }
+  catch (err) {
+    res.json({changes: false});
+  }
+});
+
+// get child function from given parent id
+async function getChild(parentEmail) {
+  return await Child.find({ parentEmail: parentEmail });
+}
+
+// api to get child
+router.get('/getChildList', async (req, res) => {
+  try {
+    const { token } = req.query
+    const { email } = verifyToken(token);
+    const response = await getChild(email);
+    res.json(response);
+  }
+  catch (err) {
+    res.json({});
   }
 });
 
