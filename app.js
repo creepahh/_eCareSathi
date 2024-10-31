@@ -29,7 +29,7 @@ const dbUrl = process.env.MONGO_URL;
 // var mongoose = require("mongoose");
 
 // //db connection
-// mongoose.connect('mongodb+srv://kripa211247:oZTLamkICAIfvjON@cluster0.ir5kr.mongodb.net/test')   
+// mongoose.connect('mongodb+srv://<usrname>:<pw>@cluster0.ir5kr.mongodb.net/test')   
 //   .then(() => console.log('Connected!'))
 //   .catch((e) => console.log(e));
 mongoose.connect(dbUrl, {
